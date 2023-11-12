@@ -27,6 +27,11 @@
 - フレームワーク：Ruby on Rails
 - JSライブラリ：jQuery
 - IDE：Cloud9
+
+## 実装機能リストのURL
+https://docs.google.com/spreadsheets/d/17LUFGZWs1QrZfGGt0Quuua166lzOIVR5jQNIQ9JnVuQ/edit?usp=sharing
+
+
 ​
 
 
