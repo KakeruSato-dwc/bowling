@@ -1,2 +1,0 @@
-class StartDate < ApplicationRecord
-end

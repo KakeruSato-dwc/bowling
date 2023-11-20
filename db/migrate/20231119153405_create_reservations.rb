@@ -13,6 +13,7 @@ class CreateReservations < ActiveRecord::Migration[6.1]
       t.text :note
       t.integer :games_fee, null: false
       t.boolean :is_active, null: false, default: true
+      t.integer :user_id, null: false
       t.timestamps
     end
   end

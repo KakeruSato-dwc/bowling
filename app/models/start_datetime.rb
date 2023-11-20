@@ -1,0 +1,2 @@
+class StartDatetime < ApplicationRecord
+end

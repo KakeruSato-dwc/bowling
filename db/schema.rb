@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_11_19_154939) do
+ActiveRecord::Schema.define(version: 2023_11_20_132225) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -36,19 +36,15 @@ ActiveRecord::Schema.define(version: 2023_11_19_154939) do
     t.text "note"
     t.integer "games_fee", null: false
     t.boolean "is_active", default: true, null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "start_dates", force: :cascade do |t|
+  create_table "start_datetimes", force: :cascade do |t|
     t.date "start_date", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "start_times", force: :cascade do |t|
     t.time "start_time", null: false
-    t.integer "num_available_lanes", default: 24, null: false
+    t.integer "num_available_lanes", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

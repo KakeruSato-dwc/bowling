@@ -1,2 +1,0 @@
-class StartTime < ApplicationRecord
-end
