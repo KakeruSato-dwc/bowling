@@ -1,2 +1,72 @@
-<h1>Public::Users#show</h1>
-<p>Find me in app/views/public/users/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-4 my-3">
+      <h2 class="bg-light text-center">マイページ</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-8">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td class="bg-light">氏名</td>
+            <td>
+              <%= @user.last_name %>
+              <%= @user.first_name %>
+            </td>
+          </tr>
+          <tr>
+            <td class="bg-light">カナ</td>
+            <td>
+              <%= @user.last_name_kana %>
+              <%= @user.first_name_kana %>
+            </td>
+          </tr>
+          <tr>
+            <td class="bg-light">郵便番号</td>
+            <td>
+              <%= @user.postal_code %>
+            </td>
+          </tr>
+          <tr>
+            <td class="bg-light">住所</td>
+            <td>
+              <%= @user.address %>
+            </td>
+          </tr>
+          <tr>
+            <td class="bg-light">電話番号</td>
+            <td>
+              <%= @user.telephone_number %>
+            </td>
+          </tr>
+          <tr>
+            <td class="bg-light">メールアドレス</td>
+            <td>
+              <%= @user.email %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <div class="row mt-4">
+    <div class="col-2">
+      <h2>登録情報</h2>
+    </div>
+    <div class="col-2">
+      <%= link_to "編集する", edit_user_information_path, class: "btn btn-success" %>
+    </div>
+    <div class="col-1"></div>
+    <div class="col-2">
+      <h2>予約履歴</h2>
+    </div>
+    <div class="col-2">
+      <%= link_to "一覧を見る", reservations_path, class: "btn btn-primary" %>
+    </div>
+  </div>
+
+</div>
