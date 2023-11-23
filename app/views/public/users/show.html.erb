@@ -2,12 +2,12 @@
   <div class="row">
     <div class="col-1"></div>
     <div class="col-4 my-3">
-      <h2 class="bg-light text-center">マイページ</h2>
+      <h2 class="bg-light text-center">会員登録情報</h2>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-8">
+    <div class="col-8 mx-auto mt-4">
       <table class="table table-bordered">
         <tbody>
           <tr>
@@ -53,19 +53,16 @@
     </div>
   </div>
   
-  <div class="row mt-4">
-    <div class="col-2">
-      <h2>登録情報</h2>
-    </div>
-    <div class="col-2">
-      <%= link_to "編集する", edit_user_information_path, class: "btn btn-success" %>
-    </div>
-    <div class="col-1"></div>
-    <div class="col-2">
-      <h2>予約履歴</h2>
-    </div>
-    <div class="col-2">
-      <%= link_to "一覧を見る", reservations_path, class: "btn btn-primary" %>
+  <div class="row">
+    <div class="col-8 mx-auto mt-4">
+      <table class="table table-borderless">
+        <tbody>
+          <tr>
+            <td><%= link_to "登録情報の編集", edit_user_information_path, class: "btn btn-success" %></td>
+            <td><%= link_to "予約履歴一覧", reservations_path, class: "btn btn-primary" %></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
