@@ -15,7 +15,8 @@
 
   <%= form_with model: @user, url: update_user_information_path, method: :patch do |f| %>
     <div class="row mt-4">
-      <div class="col-4">
+      <div class="col-1"></div>
+      <div class="col-3">
         <p>名前</p>
       </div>
       <div class="col-1"></div>
@@ -28,8 +29,9 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-4">
+    <div class="row mt-3">
+      <div class="col-1"></div>
+      <div class="col-3">
         <p>フリガナ</p>
       </div>
       <div class="col-1"></div>
@@ -42,8 +44,9 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-4">
+    <div class="row mt-3">
+      <div class="col-1"></div>
+      <div class="col-3">
         <p>郵便番号(ハイフンなし)</p>
       </div>
       <div class="col-1"></div>
@@ -52,8 +55,9 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-4">
+    <div class="row mt-3">
+      <div class="col-1"></div>
+      <div class="col-3">
         <p>住所</p>
       </div>
       <div class="col-1"></div>
@@ -62,8 +66,9 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-4">
+    <div class="row mt-3">
+      <div class="col-1"></div>
+      <div class="col-3">
         <p>電話番号(ハイフンなし)</p>
       </div>
       <div class="col-1"></div>
@@ -72,8 +77,9 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-4">
+    <div class="row mt-3">
+      <div class="col-1"></div>
+      <div class="col-3">
         <p>メールアドレス</p>
       </div>
       <div class="col-1"></div>
@@ -82,9 +88,8 @@
       </div>
     </div>
 
-    <div class="row mt-2">
-      <div class="col-5"></div>
-      <div class="col-3 action">
+    <div class="row mt-4">
+      <div class="col-12 action text-center">
         <%= f.submit "編集内容を保存", class: "btn btn-success"; %>
       </div>
     </div>
