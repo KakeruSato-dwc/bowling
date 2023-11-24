@@ -1,1 +1,57 @@
-<%= image_tag "bowling_image.png", width: '80%', height: '50%' %>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-6 text-center">
+      <div class="card border-0">
+        <div class="card-img">
+          <%= image_tag "bowling_image.png", width: '60%' %>
+        </div>
+        <div class="card-img-overlay d-flex">
+          <div class="m-auto">
+            <h2 class="text-danger">
+              <strong>
+                佐藤翔ボウル</br>
+                 予約サイト
+              </strong>
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 my-auto">
+      <h5 style="line-height: 3rem;">
+        こちらは佐藤翔ボウルの予約サイトです。</br>
+        予約するには<span class="text-primary">会員登録</span>が必要となりますが、</br>
+        会員登録は<span class="text-primary">無料</span>で行うことができます！
+      </h5>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-2"></div>
+    <div class="col-4 text-center">会員登録がお済みでない方</div>
+    <div class="col-4 text-center">既に会員登録された方</div>
+    <div class="col-2"></div>
+  </div>
+
+   <div class="row mt-2">
+    <div class="col-2"></div>
+    <div class="col-4 text-center">
+      <%= link_to "会員登録を行う", new_user_registration_path, class: "btn btn-success" %>
+    </div>
+    <div class="col-4 text-center">
+      <%= link_to "ログインする", new_user_session_path, class: "btn btn-primary" %>
+    </div>
+    <div class="col-2"></div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-8 mx-auto">料金表はこちらから参照いただけます。</div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-8 mx-auto text-center">
+      <%= link_to "料金表ページ", "/fee", class: "btn btn-info" %>
+    </div>
+  </div>
+
+ </div>
