@@ -11,7 +11,85 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <%= yield %>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <%= link_to(root_path, class: "navbar-brand") do %>
+            <span>Topページ</span>
+          <% end %>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expand="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="navbar navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+              <% if user_signed_in? %>
+                <li>
+                  <%= link_to(fee_path, class: "navbar-brand") do %>
+                    <span>料金表</span>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to(new_reservation_path, class: "navbar-brand") do %>
+                    <span>予約ページ</span>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to(my_page_path, class: "navbar-brand") do %>
+                    <span>会員情報</span>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to(destroy_user_session_path, method: :delete, class: "navbar-brand") do %>
+                    <span>ログアウト</span>
+                  <% end %>
+                </li>
+              <% elsif admin_signed_in? %>
+                <li>
+                  <%= link_to(admin_users_path, class: "navbar-brand") do %>
+                    <span>会員一覧</span>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to(admin_reservations_path, class: "navbar-brand") do %>
+                    <span>予約一覧</span>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to(admin_start_dates_path, class: "navbar-brand") do %>
+                    <span>残レーン数編集</span>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to(destroy_admin_session_path, method: :delete, class: "navbar-brand") do %>
+                    <span>ログアウト</span>
+                  <% end %>
+                </li>
+              <% else %>
+                <li>
+                  <%= link_to(fee_path, class: "navbar-brand") do %>
+                    <span>料金表</span>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to(new_user_registration_path, class: "navbar-brand") do %>
+                    <span>会員登録</span>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to(new_user_session_path, class: "navbar-brand") do %>
+                    <span>ログイン</span>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <p class="notice"><%= notice %></p>
+      <%= yield %>
+    </main>
   </body>
 </html>
