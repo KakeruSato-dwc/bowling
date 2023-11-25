@@ -1,2 +1,16 @@
-<h1>Public::Reservations#new</h1>
-<p>Find me in app/views/public/reservations/new.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-4 mt-3">
+      <h2 class="bg-light text-center">予約情報入力</h2>
+      <% if @reservation.errors.any? %>
+        <h4><%= @reservation.errors.count %>件のエラーが発生しました</h4>
+        <ul>
+          <% @reservation.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+
+</div>

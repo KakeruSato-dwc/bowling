@@ -2,8 +2,96 @@
   <div class="row">
     <div class="col-6 mt-3">
       <h2 class="bg-light text-center">
-        <%= @user.last_name %> <%= @user.first_name %>さんの会員情報
+        <%= @user.last_name %> <%= @user.first_name %>さんの会員・予約情報
       </h2>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-6 text-center">
+      <p>会員情報</p>
+    </div>
+    <div class="col-6 text-center">
+      <p>予約情報（最近の５件）</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-6">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td class="bg-light" scope="col" style="width: 30%">氏名</td>
+            <td scope="col" style="width: 70%">
+              <%= @user.last_name %>
+              <%= @user.first_name %>
+            </td>
+          </tr>
+          <tr>
+            <td class="bg-light">カナ</td>
+            <td>
+              <%= @user.last_name_kana %>
+              <%= @user.first_name_kana %>
+            </td>
+          </tr>
+          <tr>
+            <td class="bg-light">郵便番号</td>
+            <td>
+              <%= @user.postal_code %>
+            </td>
+          </tr>
+          <tr>
+            <td class="bg-light">住所</td>
+            <td>
+              <%= @user.address %>
+            </td>
+          </tr>
+          <tr>
+            <td class="bg-light">電話番号</td>
+            <td>
+              <%= @user.telephone_number %>
+            </td>
+          </tr>
+          <tr>
+            <td class="bg-light">メールアドレス</td>
+            <td>
+              <%= @user.email %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-6">
+      <table class="table table-bordered">
+        <thead class="bg-light">
+          <tr>
+            <td scope="col" style="width: 15%">実施日</td>
+            <td scope="col" style="width: 50%">団体名</td>
+            <td scope="col" style="width: 15%">人数</td>
+            <td scope="col" style="width: 20%">ステータス</td>
+          </tr>
+        </thead>
+        <tbody>
+          <% @reservations.each do |reservation| %>
+            <tr>
+              <td><%= reservation.start_date %></td>
+              <td><%= reservation.group_name %></td>
+              <td><%= reservation.num_children + reservation.num_students + reservation.num_adults %></td>
+              <% if reservation.is_active == true %>
+                <td>有効</td>
+              <% else %>
+                <td>キャンセル</td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-6 text-center">
+      <%= link_to "会員情報編集", edit_admin_user_path(@user.id), class: "btn btn-success" %>
     </div>
   </div>
 
