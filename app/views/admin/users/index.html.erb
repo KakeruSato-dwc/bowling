@@ -1,2 +1,39 @@
-<h1>Admin::Users#index</h1>
-<p>Find me in app/views/admin/users/index.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-4 mt-3">
+      <h2 class="bg-light text-center">会員一覧</h2>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-10 mx-auto">
+      <table class="table table-borderless">
+        <thead class="table bg-info">
+          <tr>
+            <th>会員ID</th>
+            <th>氏名</th>
+            <th>メールアドレス</th>
+            <th>予約回数</th>
+            <th>キャンセル回数</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= user.id %></td>
+              <td>
+                <%= link_to(admin_user_path(user.id), style: "color: black; text-decoration: underline") do %>
+                  <%= user.last_name %> <%= user.first_name %>
+                <% end %>
+              </td>
+              <td><%= user.email %></td>
+              <td><%= user.reservations.count %></td>
+              <td><%= user.reservations.where(is_active: false).count %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= paginate @users %>
+    </div>
+  </div>
+</div>
