@@ -4,9 +4,18 @@ class Public::ReservationsController < ApplicationController
   end
 
   def select_time
+    @reservation = Reservation.new(reservation_params)
+    @reservation.user_id = current_user.id
+    render :select_time
   end
 
   def confirm
+    @reservation = Reservation.new(reservation_params)
+    if params[:back]
+      render :new
+      return
+    end
+    render :confirm
   end
 
   def create

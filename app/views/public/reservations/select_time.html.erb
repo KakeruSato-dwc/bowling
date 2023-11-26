@@ -1,0 +1,14 @@
+<%= @reservation.group_name %>
+<%= @reservation.num_games %>
+<%= @reservation.start_date %>
+<%= form_with model: @reservation, url: confirm_path, method: :post do |f| %>
+  <%= f.hidden_field :group_name %>
+  <%= f.hidden_field :num_children %>
+  <%= f.hidden_field :num_students %>
+  <%= f.hidden_field :num_adults %>
+  <%= f.hidden_field :num_games %>
+  <%= f.hidden_field :num_lanes %>
+  <%= f.hidden_field :start_date %>
+  <%= f.submit "確認画面へ進む", class: "btn btn-success" %>
+  <%= f.submit "戻る", name: :back, class: "btn btn-primary" %>
+<% end %>
