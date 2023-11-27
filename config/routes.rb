@@ -41,8 +41,8 @@ Rails.application.routes.draw do
   post "/reservations/select_time" => "public/reservations#select_time", as: "select_time"
   post "/reservations/confirm" => "public/reservations#confirm", as: "confirm"
   get "/complete" => "public/reservations#complete", as: "complete"
-  get "/reservations/confirm_cancel" => "public/reservations#confirm_cancel", as: "confirm_cancel"
-  patch "/reservations/cancel" => "public/reservations#cancel", as: "cancel"
+  get "/reservations/:id/confirm_cancel" => "public/reservations#confirm_cancel", as: "confirm_cancel"
+  patch "/reservations/:id/cancel" => "public/reservations#cancel", as: "cancel"
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

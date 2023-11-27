@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-10 mx-auto text-center">
+      <h2>本当にキャンセルしますか？</h2>
+      <h4 class="mt-4">キャンセルした予約は、元に戻すことができません。</h4>
+    </div>
+  </div>
+  
+  <div class="row mt-4">
+    <div class="col-4"></div>
+    <div class="col-2 text-center">
+      <%= link_to "戻る", reservation_path(@reservation.id), class: "btn btn-primary" %>
+    </div>
+    <div class="col-2 text-center">
+      <%= form_with model: @reservation, url: cancel_path(@reservation.id), method: :patch do |f| %>
+        <%= f.submit "キャンセルする", class: "btn btn-danger" %>
+      <% end %>
+    </div>
+  </div>
+  
+</div>

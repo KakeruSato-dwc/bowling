@@ -1,2 +1,62 @@
-<%= @reservation.id %>
-<%= @reservation.group_name %>
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-4 text-center bg-light">
+      <h2>予約履歴詳細</h2>
+    </div>
+  </div>
+  
+   <div class="row mt-4">
+    <div class="col-8 mx-auto">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td class="bg-light">団体名</td>
+            <td><%= @reservation.group_name %> 様</td>
+          </tr>
+          <tr>
+            <td class="bg-light">中学生以下の人数</td>
+            <td><%= @reservation.num_children %> 人</td>
+          </tr>
+          <tr>
+            <td class="bg-light">高校・大学・専門学生の人数</td>
+            <td><%= @reservation.num_students %> 人</td>
+          </tr>
+          <tr>
+            <td class="bg-light">一般の人数</td>
+            <td><%= @reservation.num_adults %> 人</td>
+          </tr>
+          <tr>
+            <td class="bg-light">ゲーム数</td>
+            <td><%= @reservation.num_games %> ゲーム</td>
+          </tr>
+          <tr>
+            <td class="bg-light">使用レーン数</td>
+            <td><%= @reservation.num_lanes %> レーン</td>
+          </tr>
+          <tr>
+            <td class="bg-light">スタート日時</td>
+            <td><%= @reservation.start_date %> <%= @reservation.start_time.strftime("%H:%M") %></td>
+          </tr>
+          <tr>
+            <td class="bg-light">備考</td>
+            <td><%= @reservation.note %></td>
+          </tr>
+          <tr>
+            <td class="bg-light">ゲーム代</td>
+            <td><%= @reservation.games_fee.to_s(:delimited) %> 円</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <div class="row mt-2">
+    <div class="col-4"></div>
+    <div class="col-2 text-center">
+      <%= link_to "戻る", reservations_path, class: "btn btn-primary" %>
+    </div>
+    <div class="col-2 text-center">
+      <%= link_to "キャンセル", confirm_cancel_path(@reservation.id), class: "btn btn-danger" %>
+    </div>
+  </div>
+</div>

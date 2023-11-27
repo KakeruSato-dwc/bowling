@@ -36,7 +36,7 @@ class Public::ReservationsController < ApplicationController
   end
 
   def index
-    @reservations = current_user.reservations
+    @reservations = current_user.reservations.order(created_at: :desc)
   end
 
   def show
@@ -44,9 +44,13 @@ class Public::ReservationsController < ApplicationController
   end
 
   def confirm_cancel
+    @reservation = Reservation.find(params[:id])
   end
 
   def cancel
+    @reservation = Reservation.find(params[:id])
+    @reservation.update(is_active: false)
+    redirect_to reservations_path
   end
 
   private

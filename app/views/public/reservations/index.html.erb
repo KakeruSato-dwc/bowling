@@ -1,6 +1,42 @@
-<% @reservations.each do |reservation| %>
-  <%= reservation.created_at %>
-  <%= reservation.group_name %>
-  <%= reservation.num_children + reservation.num_students + reservation.num_adults %>
-  <%= reservation.start_date %>
-<% end %>
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-4 text-center bg-light">
+      <h2>予約履歴一覧</h2>
+    </div>
+  </div>
+  
+  <div class="row mt-4">
+    <div class="col-12 mx-auto text-center">
+            <table class="table table-bordered">
+        <thead class="bg-light">
+          <tr>
+            <td scope="col" style="width: 30%">団体名</td>
+            <td scope="col" style="width: 15%">実施日</td>
+            <td scope="col" style="width: 15%">スタート時間</td>
+            <td scope="col" style="width: 10%">人数</td>
+            <td scope="col" style="width: 15%">ステータス</td>
+            <td scope="col" style="width: 15%">詳細を見る</td>
+          </tr>
+        </thead>
+        <tbody>
+          <% @reservations.each do |reservation| %>
+            <tr>
+              <td><%= reservation.group_name %></td>
+              <td><%= reservation.start_date %></td>
+              <td><%= reservation.start_time.strftime("%H:%M") %></td>
+              <td><%= reservation.num_children + reservation.num_students + reservation.num_adults %></td>
+              <% if reservation.is_active == true %>
+                <td class="text text-success">有効</td>
+              <% else %>
+                <td class="text text-danger">キャンセル</td>
+              <% end %>
+              <td><%= link_to "詳細", reservation_path(reservation.id), class: "btn btn-primary" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
