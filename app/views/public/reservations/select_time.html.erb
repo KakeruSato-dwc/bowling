@@ -1,14 +1,57 @@
-<%= @reservation.group_name %>
-<%= @reservation.num_games %>
-<%= @reservation.start_date %>
-<%= form_with model: @reservation, url: confirm_path, method: :post do |f| %>
-  <%= f.hidden_field :group_name %>
-  <%= f.hidden_field :num_children %>
-  <%= f.hidden_field :num_students %>
-  <%= f.hidden_field :num_adults %>
-  <%= f.hidden_field :num_games %>
-  <%= f.hidden_field :num_lanes %>
-  <%= f.hidden_field :start_date %>
-  <%= f.submit "確認画面へ進む", class: "btn btn-success" %>
-  <%= f.submit "戻る", name: :back, class: "btn btn-primary" %>
-<% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-4 mt-3">
+      <h2 class="bg-light text-center">スタート時間入力</h2>
+      <% if @reservation.errors.any? %>
+        <h4><%= @reservation.errors.count %>件のエラーが発生しました</h4>
+        <ul>
+          <% @reservation.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+
+  <%= form_with model: @reservation, url: confirm_path, method: :post do |f| %>
+    <div class="row mt-4">
+      <div class="col-2"></div>
+      <div class="col-4 h4">スタート時間</div>
+      <div class="col-5">
+        <%= f.time_select :start_time, start_hour: 10, end_hour: 21, minute_step: 30 %>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-2"></div>
+      <div class="col-6">
+        <span class="h4">備考</span><span>（何か連絡事項があればここに記入してください）</span>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-8 mx-auto text-center">
+        <%= f.text_area :note, cols: "80%", rows: 5 %>
+      </div>
+    </div>
+
+    <%= f.hidden_field :group_name %>
+    <%= f.hidden_field :num_children %>
+    <%= f.hidden_field :num_students %>
+    <%= f.hidden_field :num_adults %>
+    <%= f.hidden_field :num_games %>
+    <%= f.hidden_field :num_lanes %>
+    <%= f.hidden_field :start_date %>
+
+    <div class="row mt-4">
+      <div class="col-4"></div>
+      <div class="col-2 text-center">
+        <%= f.submit "確認画面へ進む", class: "btn btn-success" %>
+      </div>
+      <div class="col-2 text-center">
+        <%= f.submit "戻る", name: :back, class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+
+</div>

@@ -43,7 +43,7 @@
     </div>
     <div class="col-5 text-center my-auto"><%= f.select :num_lanes, *[1..24] %></div>
   </div>
-  
+
   <div class="row mt-4">
     <div class="col-1"></div>
     <div class="col-4 text-center">
@@ -51,7 +51,7 @@
     </div>
     <div class="col-5 text-center my-auto"><%= f.date_field :start_date, min: Date.current, max: Date.current.since(3.month) %></div>
   </div>
-  
+
   <div class="row mt-4">
     <div class="col-8 mx-auto text-center">
       <%= f.submit "次に進む", class: "btn btn-success" %>

@@ -11,6 +11,7 @@ class Public::ReservationsController < ApplicationController
 
   def confirm
     @reservation = Reservation.new(reservation_params)
+    @reservation.user_id = current_user.id
     if params[:back]
       render :new
       return
@@ -19,6 +20,14 @@ class Public::ReservationsController < ApplicationController
   end
 
   def create
+    @reservation = Reservation.new(reservation_params)
+    @reservation.user_id = current_user.id
+    if params[:back]
+      render :new
+      return
+    end
+    @reservation.save
+    redirect_to complete_path
   end
 
   def complete

@@ -1,1 +1,26 @@
-<%= @reservation.num_lanes %>
+<div class="container">
+  <div class="row">
+    <div class="col-4 mt-3">
+      <h2 class="bg-light text-center">予約情報確認画面</h2>
+    </div>
+  </div>
+
+  <% @children_fee = @reservation.num_children * 400 %>
+  <% @students_fee = @reservation.num_students * 500 %>
+  <% @adults_fee = @reservation.num_adults * 600 %>
+  <% @sum = @children_fee + @students_fee + @adults_fee %>
+  <%= @sum %>
+  <%= form_with model: @reservation, url: reservations_path, method: :post do |f| %>
+    <%= f.hidden_field :group_name %>
+    <%= f.hidden_field :num_children %>
+    <%= f.hidden_field :num_students %>
+    <%= f.hidden_field :num_adults %>
+    <%= f.hidden_field :num_games %>
+    <%= f.hidden_field :num_lanes %>
+    <%= f.hidden_field :start_date %>
+    <%= f.hidden_field :start_time %>
+    <%= f.hidden_field :note %>
+    <%= f.hidden_field :games_fee, :value => @sum %>
+  <% end %>
+
+</div>
