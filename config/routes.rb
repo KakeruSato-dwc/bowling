@@ -40,7 +40,7 @@ Rails.application.routes.draw do
   end
   post "/reservations/select_time" => "public/reservations#select_time", as: "select_time"
   post "/reservations/confirm" => "public/reservations#confirm", as: "confirm"
-  get "/reservations/complete" => "public/reservations#complete", as: "complete"
+  get "/complete" => "public/reservations#complete", as: "complete"
   get "/reservations/confirm_cancel" => "public/reservations#confirm_cancel", as: "confirm_cancel"
   patch "/reservations/cancel" => "public/reservations#cancel", as: "cancel"
 

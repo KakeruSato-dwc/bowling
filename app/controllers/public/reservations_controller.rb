@@ -1,4 +1,6 @@
 class Public::ReservationsController < ApplicationController
+  before_action :authenticate_user!
+
   def new
     @reservation = Reservation.new
   end
@@ -34,9 +36,11 @@ class Public::ReservationsController < ApplicationController
   end
 
   def index
+    @reservations = current_user.reservations
   end
 
   def show
+    @reservation = Reservation.find(params[:id])
   end
 
   def confirm_cancel
