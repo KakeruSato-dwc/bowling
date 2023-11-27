@@ -23,7 +23,7 @@ class Public::ReservationsController < ApplicationController
     @reservation = Reservation.new(reservation_params)
     @reservation.user_id = current_user.id
     if params[:back]
-      render :new
+      render :select_time
       return
     end
     @reservation.save

@@ -9,7 +9,52 @@
   <% @students_fee = @reservation.num_students * 500 %>
   <% @adults_fee = @reservation.num_adults * 600 %>
   <% @sum = @children_fee + @students_fee + @adults_fee %>
-  <%= @sum %>
+
+  <div class="row mt-4">
+    <div class="col-8 mx-auto">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td class="bg-light">団体名</td>
+            <td><%= @reservation.group_name %> 様</td>
+          </tr>
+          <tr>
+            <td class="bg-light">中学生以下の人数</td>
+            <td><%= @reservation.num_children %> 人</td>
+          </tr>
+          <tr>
+            <td class="bg-light">高校・大学・専門学生の人数</td>
+            <td><%= @reservation.num_students %> 人</td>
+          </tr>
+          <tr>
+            <td class="bg-light">一般の人数</td>
+            <td><%= @reservation.num_adults %> 人</td>
+          </tr>
+          <tr>
+            <td class="bg-light">ゲーム数</td>
+            <td><%= @reservation.num_games %> ゲーム</td>
+          </tr>
+          <tr>
+            <td class="bg-light">使用レーン数</td>
+            <td><%= @reservation.num_lanes %> レーン</td>
+          </tr>
+          <tr>
+            <td class="bg-light">スタート日時</td>
+            <td><%= @reservation.start_date %> <%= @reservation.start_time.strftime("%H:%M") %></td>
+          </tr>
+          <tr>
+            <td class="bg-light">備考</td>
+            <td><%= @reservation.note %></td>
+          </tr>
+          <tr>
+            <td class="bg-light">ゲーム代</td>
+            <td><%= @sum.to_s(:delimited) %> 円</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
   <%= form_with model: @reservation, url: reservations_path, method: :post do |f| %>
     <%= f.hidden_field :group_name %>
     <%= f.hidden_field :num_children %>
@@ -21,6 +66,15 @@
     <%= f.hidden_field :start_time %>
     <%= f.hidden_field :note %>
     <%= f.hidden_field :games_fee, :value => @sum %>
+    <div class="row mt-3">
+      <div class="col-4"></div>
+      <div class="col-2 text-center">
+        <%= f.submit "予約を確定する", class: "btn btn-success" %>
+      </div>
+      <div class="col-2 text-center">
+        <%= f.submit "戻る", name: :back, class: "btn btn-primary" %>
+      </div>
+    </div>
   <% end %>
 
 </div>
