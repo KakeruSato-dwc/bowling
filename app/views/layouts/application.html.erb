@@ -50,8 +50,13 @@
                   <% end %>
                 </li>
                 <li>
+                  <%= link_to(admin_root_path, class: "navbar-brand") do %>
+                    <span>予約一覧(未)</span>
+                  <% end %>
+                </li>
+                <li>
                   <%= link_to(admin_reservations_path, class: "navbar-brand") do %>
-                    <span>予約一覧</span>
+                    <span>予約一覧(済)</span>
                   <% end %>
                 </li>
                 <li>
