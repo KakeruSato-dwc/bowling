@@ -1,2 +1,74 @@
-<h1>Admin::Reservations#edit</h1>
-<p>Find me in app/views/admin/reservations/edit.html.erb</p>
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-12 text-center bg-light">
+      <h2><%= @reservation.start_date %> <%= @reservation.group_name %>様の予約編集</h2>
+      <% if @reservation.errors.any? %>
+        <h4><%= @reservation.errors.count %>件のエラーが発生しました</h4>
+        <ul>
+          <% @reservation.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+
+  <%= form_with model: @reservation, url: admin_reservation_path(@reservation.id), method: :patch do |f| %>
+    <div class="row mt-4">
+      <div class="col-8 mx-auto">
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td class="bg-light">団体名</td>
+              <td><%= f.text_field :group_name %> 様</td>
+            </tr>
+            <tr>
+              <td class="bg-light">中学生以下の人数</td>
+              <td><%= f.text_field :num_children %> 人</td>
+            </tr>
+            <tr>
+              <td class="bg-light">高校・大学・専門学生の人数</td>
+              <td><%= f.text_field :num_students %> 人</td>
+            </tr>
+            <tr>
+              <td class="bg-light">一般の人数</td>
+              <td><%= f.text_field :num_adults %> 人</td>
+            </tr>
+            <tr>
+              <td class="bg-light">ゲーム数</td>
+              <td><%= f.text_field :num_games %> ゲーム</td>
+            </tr>
+            <tr>
+              <td class="bg-light">使用レーン数</td>
+              <td><%= f.text_field :num_lanes %> レーン</td>
+            </tr>
+            <tr>
+              <td class="bg-light">実施日</td>
+              <td><%= f.date_field :start_date %></td>
+            </tr>
+            <tr>
+              <td class="bg-light">スタート時間</td>
+              <td><%= f.time_select :start_time, start_hour: 10, end_hour: 21, minute_step: 30 %></td>
+            </tr>
+            <tr>
+              <td class="bg-light">ステータス</td>
+              <td>
+                <%= f.radio_button :is_active, true %>
+                <%= f.label :is_active_true, "有効" %>
+                <%= f.radio_button :is_active, false, class: "ml-4" %>
+                <%= f.label :is_active_false, "キャンセル" %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <div class="row mt-2">
+      <div class="col-8 mx-auto text-center">
+        <%= f.submit "編集内容を保存", class: "btn btn-success" %>
+      </div>
+    </div>
+  <% end %>
+
+</div>

@@ -15,6 +15,8 @@ class Admin::ReservationsController < ApplicationController
   def update
     @reservation = Reservation.find(params[:id])
     if @reservation.update(reservation_params)
+      fixed_games_fee = @reservation.num_children * 400 + @reservation.num_students * 500 + @reservation.num_adults * 600
+      @reservation.update(games_fee: fixed_games_fee)
       redirect_to admin_reservation_path(@reservation.id)
     else
       render :edit
