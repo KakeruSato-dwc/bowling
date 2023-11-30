@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     root to: "homes#top"
   end
 
+  get "/admin/recent_registrated_reservation" => "admin/homes#about", as: "admin_about"
+
   root to: "public/homes#top"
   get "/fee" => "public/homes#about", as: "fee"
 
