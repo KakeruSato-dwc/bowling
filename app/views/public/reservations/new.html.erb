@@ -49,7 +49,7 @@
     <div class="col-4 text-center">
       <h4>実施日</h4>
     </div>
-    <div class="col-5 text-center my-auto"><%= f.date_field :start_date, min: Date.current, max: Date.current.since(3.month) %></div>
+    <div class="col-5 text-center my-auto"><%= f.date_field :start_date, min: Date.current.since(1.day), max: Date.current.since(3.month) %></div>
   </div>
 
   <div class="row mt-4">

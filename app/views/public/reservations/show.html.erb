@@ -4,7 +4,7 @@
       <h2>予約履歴詳細</h2>
     </div>
   </div>
-  
+
    <div class="row mt-4">
     <div class="col-8 mx-auto">
       <table class="table table-bordered">
@@ -49,14 +49,22 @@
       </table>
     </div>
   </div>
-  
-  <div class="row mt-2">
-    <div class="col-4"></div>
-    <div class="col-2 text-center">
-      <%= link_to "戻る", reservations_path, class: "btn btn-primary" %>
+
+  <% if @reservation.start_date >= Date.current %>
+    <div class="row mt-2">
+      <div class="col-4"></div>
+      <div class="col-2 text-center">
+        <%= link_to "戻る", reservations_path, class: "btn btn-primary" %>
+      </div>
+      <div class="col-2 text-center">
+        <%= link_to "キャンセル", confirm_cancel_path(@reservation.id), class: "btn btn-danger" %>
+      </div>
     </div>
-    <div class="col-2 text-center">
-      <%= link_to "キャンセル", confirm_cancel_path(@reservation.id), class: "btn btn-danger" %>
+  <% else %>
+    <div class="row mt-2">
+      <div class="col-8 mx-auto text-center">
+        <%= link_to "戻る", reservations_path, class: "btn btn-primary" %>
+      </div>
     </div>
-  </div>
+  <% end %>
 </div>
