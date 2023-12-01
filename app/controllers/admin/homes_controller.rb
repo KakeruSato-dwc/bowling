@@ -5,7 +5,7 @@ class Admin::HomesController < ApplicationController
   end
 
   def about
-    @reservation_today = Reservation.where("created_at > ?", Date.yesterday).where("created_at <= ?", Date.tomorrow).order(start_time: :asc).order(start_date: :asc)
-    @reservation_yesterday = Reservation.where("created_at > ?", Date.current.ago(2.days)).where("created_at < ?", Date.today).order(start_time: :asc).order(start_date: :asc)
+    @reservation_today = Reservation.where(created_at: Time.zone.now.all_day).order(start_time: :asc).order(start_date: :asc)
+    @reservation_yesterday = Reservation.where(created_at: 1.day.ago.all_day).order(start_time: :asc).order(start_date: :asc)
   end
 end

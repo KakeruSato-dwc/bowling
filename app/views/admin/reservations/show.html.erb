@@ -60,9 +60,9 @@
 
   <% if @reservation.start_date >= Date.current %>
     <div class="row mt-2">
-      <div class="col-4"></div>
-      <div class="col-2 text-center">
-        <%= link_to "戻る", admin_root_path, class: "btn btn-primary" %>
+      <div class="col-3"></div>
+      <div class="col-3 text-center">
+        <%= link_to "本日以降の予約一覧へ", admin_root_path, class: "btn btn-primary" %>
       </div>
       <div class="col-2 text-center">
         <%= link_to "編集する", edit_admin_reservation_path(@reservation.id), class: "btn btn-success" %>
@@ -70,9 +70,9 @@
     </div>
   <% else %>
     <div class="row mt-2">
-      <div class="col-4"></div>
-      <div class="col-2 text-center">
-        <%= link_to "戻る", admin_reservations_path, class: "btn btn-primary" %>
+      <div class="col-3"></div>
+      <div class="col-3 text-center">
+        <%= link_to "前日までの予約一覧へ", admin_reservations_path, class: "btn btn-primary" %>
       </div>
       <div class="col-2 text-center">
         <%= link_to "編集する", edit_admin_reservation_path(@reservation.id), class: "btn btn-success" %>
