@@ -14,7 +14,7 @@
             <th>氏名</th>
             <th>メールアドレス</th>
             <th>予約回数</th>
-            <th>キャンセル回数</th>
+            <th>直近の予約の実施日</th>
           </tr>
         </thead>
         <tbody>
@@ -28,7 +28,9 @@
               </td>
               <td><%= user.email %></td>
               <td><%= user.reservations.count %></td>
-              <td><%= user.reservations.where(is_active: false).count %></td>
+              <% date = user.reservations.find(user.reservations.count).start_date %>
+              <% days = ["日", "月", "火", "水", "木", "金", "土"] %>
+              <td><%= date %> (<%= days[date.wday] %>)</td>
             </tr>
           <% end %>
         </tbody>
