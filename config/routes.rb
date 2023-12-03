@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   }
 
   namespace :admin do
-    resources :start_dates, only: [:new, :create, :index, :show] do
+    resources :start_dates, only: [:create, :index, :show, :destroy] do
       resources :start_times, only: [:new, :create, :update]
     end
   end

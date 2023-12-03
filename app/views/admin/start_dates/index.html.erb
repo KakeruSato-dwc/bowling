@@ -1,5 +1,26 @@
-<%= month_calendar do |date| %>
-  <%= date %>
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-4 text-center bg-light">
+      <h2>カレンダー</h2>
+    </div>
+  </div>
 
-  <p><%= Reservation.where(start_date: date).count %>件</p>
-<% end %>
+  <div class="row mt-4">
+    <div class="col-12 mx-auto text-center">
+      <%= month_calendar do |date| %>
+        <% if StartDate.find_by(start_date: date) %>
+          <%= link_to(admin_start_date_path(StartDate.find_by(start_date: date).id), style: "color: black") do %>
+            <%= date.day %>
+          <% end %>
+        <% else %>
+          <%= date.day %>
+          <%= form_with model: @start_date, url: admin_start_dates_path, method: :post do |f| %>
+            <%= f.hidden_field :start_date, :value => date %>
+            <%= f.submit "残レーン入力", class: "btn btn-success" %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+</div>

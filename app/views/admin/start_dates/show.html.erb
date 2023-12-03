@@ -1,2 +1,2 @@
-<h1>Admin::StartDates#show</h1>
-<p>Find me in app/views/admin/start_dates/show.html.erb</p>
+<%= @start_date.start_date %>
+<%= link_to "削除", admin_start_date_path(@start_date.id), method: :delete %>
