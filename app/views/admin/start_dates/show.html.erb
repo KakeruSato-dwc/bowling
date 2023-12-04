@@ -1,2 +1,28 @@
-<%= @start_date.start_date %>
-<%= link_to "削除", admin_start_date_path(@start_date.id), method: :delete %>
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-8 mx-auto text-center bg-light">
+      <h2><%= @start_date.start_date %> の詳細</h2>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-8 mx-auto text-center">
+      <table class="table table-bordered">
+        <thead class="bg-light">
+          <tr>
+            <td>時間</td>
+            <td>残レーン数</td>
+          </tr>
+        </thead>
+        <tbody>
+          <% @start_times.each do |start_time| %>
+            <tr>
+              <td><%= start_time.start_time.strftime("%H:%M") %></td>
+              <td><%= start_time.num_available_lanes %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

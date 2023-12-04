@@ -8,5 +8,5 @@ class Reservation < ApplicationRecord
   validates :num_games, presence: true
   validates :num_lanes, presence: true
   validates :start_date, presence: true
-  validates :start_time, presence: true
+  validates :start_time, presence: true, format: {with: /[1-2][0-9]:[0-5][0-9]/}
 end

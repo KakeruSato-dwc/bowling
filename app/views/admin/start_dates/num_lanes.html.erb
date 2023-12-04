@@ -2,18 +2,11 @@
   <div class="row mt-4">
     <div class="col-8 mx-auto text-center bg-light">
       <h2><%= @start_date.start_date %> の残レーン数入力</h2>
-      <% if @start_times.errors.any? %>
-        <h4><%= @start_times.errors.count %>件のエラーが発生しました</h4>
-        <ul>
-          <% @start_times.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      <% end %>
     </div>
   </div>
 
-  <%= form_with model: @start_times, url: admin_start_date_start_times_path(@start_date.id), method: :post do |f| %>
+  <%= form_with model: @start_date, url: admin_start_dates_path, method: :post do |f| %>
+    <%= f.hidden_field :start_date %>
     <div class="row mt-4">
       <div class="col-8 mx-auto text-center">
         <table class="table table-bordered">
@@ -25,13 +18,12 @@
           </thead>
           <tbody>
             <% times = ["11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00"] %>
-            <% @start_times.collection.zip(times) do |start_time, time| %>
-              <%= fields_for "start_times[]", start_time do |start_time_field| %>
-                <tr>
-                  <td><%= start_time_field.time_select :start_time %></td>
-                  <td><%= start_time_field.select :num_available_lanes, *[0..24], {selected: 24} %></td>
-                </tr>
-              <% end %>
+            <%= f.fields_for :start_times do |start_time_field| %>
+              <tr>
+                <td><%= times[start_time_field.index] %></td>
+                <%= start_time_field.hidden_field :start_time, :value => times[start_time_field.index] %>
+                <td><%= start_time_field.select :num_available_lanes, *[0..24], {selected: 24} %></td>
+              </tr>
             <% end %>
           </tbody>
         </table>
@@ -44,5 +36,4 @@
       </div>
     </div>
   <% end %>
-
 </div>
