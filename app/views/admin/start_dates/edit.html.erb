@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-8 mx-auto text-center bg-light">
+      <h2><%= @start_date.start_date %> 残レーン数の編集</h2>
+    </div>
+  </div>
+
+  <%= form_with model: @start_date, url: admin_start_date_path(@start_date.id), method: :patch do |f| %>
+    <div class="row mt-4">
+      <div class="col-8 mx-auto text-center">
+        <table class="table table-bordered">
+          <thead class="bg-light">
+            <tr>
+              <td>時間</td>
+              <td>残レーン数</td>
+            </tr>
+          </thead>
+          <tbody>
+            <% times = ["11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00"] %>
+            <%= f.fields_for :start_times do |start_time_field| %>
+              <tr>
+                <td><%= times[start_time_field.index] %></td>
+                <td><%= start_time_field.select :num_available_lanes, *[0..24] %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-6 mx-auto text-center">
+        <%= f.submit "編集内容を保存", class: "btn btn-success" %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,7 +1,10 @@
 class Admin::StartDatesController < ApplicationController
+  before_action :set_beginning_of_week
+
   def index
     @start_date = StartDate.new
     @start_times = 21.times{@start_date.start_times.build}
+    @reservations = Reservation.all
   end
 
   def num_lanes
@@ -18,7 +21,21 @@ class Admin::StartDatesController < ApplicationController
 
   def show
     @start_date = StartDate.find(params[:id])
+    start_times = @start_date.start_times.all
+    @start_times_first = start_times.first(11)
+    @start_times_second = start_times.last(10)
+    @reservations = Reservation.where(start_date: @start_date.start_date, is_active: true)
+  end
+
+  def edit
+    @start_date = StartDate.find(params[:id])
     @start_times = @start_date.start_times.all
+  end
+
+  def update
+    @start_date = StartDate.find(params[:id])
+    @start_date.update(start_date_params)
+    redirect_to admin_start_date_path(@start_date.id)
   end
 
   def destroy
@@ -28,6 +45,10 @@ class Admin::StartDatesController < ApplicationController
   end
 
   private
+
+  def set_beginning_of_week
+    Date.beginning_of_week = :sunday
+  end
 
   def start_date_params
     params.require(:start_date).permit(:start_date,
