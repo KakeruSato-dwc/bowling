@@ -12,12 +12,12 @@
           <%= link_to(admin_start_date_path(StartDate.find_by(start_date: date).id), style: "color: black") do %>
             <%= date.day %>
             <% if Reservation.where(start_date: date, is_active: true).exists? %>
-              <p class="bg-primary text-white"><%= Reservation.where(start_date: date).count %>件</p>
+              <p class="bg-primary text-white"><%= Reservation.where(start_date: date, is_active: true).count %>件</p>
             <% end %>
           <% end %>
         <% else %>
           <%= date.day %>
-          <% if date >= Date.current %>
+          <% if date >= Date.current.since(1.day) && date <= Date.current.since(3.month) %>
             <%= form_with model: @start_date, url: admin_num_lanes_path, method: :post do |f| %>
               <%= f.hidden_field :start_date, :value => date %>
               <%= f.submit "残レーン入力", class: "btn btn-success" %>
