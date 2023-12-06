@@ -8,6 +8,7 @@ class Public::ReservationsController < ApplicationController
   def select_time
     @reservation = Reservation.new(reservation_params)
     @reservation.user_id = current_user.id
+    @start_date = StartDate.find_by(start_date: params[:reservation][:start_date])
     render :select_time
   end
 
@@ -18,15 +19,33 @@ class Public::ReservationsController < ApplicationController
       render :new
       return
     end
+    @start_date = StartDate.find_by(start_date: @reservation.start_date)
+    @start_date.start_times.each do |start_time|
+      time = start_time.start_time
+      if time.strftime("%H:%M") == "#{params[:reservation]["start_time(4i)"]}:#{params[:reservation]["start_time(5i)"]}"
+        if @reservation.num_lanes > start_time.num_available_lanes
+          render :select_time
+          return
+        end
+      end
+    end
     render :confirm
   end
 
   def create
     @reservation = Reservation.new(reservation_params)
     @reservation.user_id = current_user.id
+    @start_date = StartDate.find_by(start_date: @reservation.start_date)
     if params[:back]
       render :select_time
       return
+    end
+    @start_date.start_times.each do |start_time|
+      time = start_time.start_time
+      if time.strftime("%H:%M") == @reservation.start_time.strftime("%H:%M")
+        remaining_lanes = start_time.num_available_lanes - @reservation.num_lanes
+        start_time.update(num_available_lanes: remaining_lanes)
+      end
     end
     @reservation.save
     redirect_to complete_path

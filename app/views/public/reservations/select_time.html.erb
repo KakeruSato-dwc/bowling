@@ -15,26 +15,46 @@
 
   <%= form_with model: @reservation, url: confirm_path, method: :post do |f| %>
     <div class="row mt-4">
-      <div class="col-2"></div>
-      <div class="col-4 h4">スタート時間</div>
-      <div class="col-5">
-        <%= f.time_select :start_time, start_hour: 11, end_hour: 21, minute_step: 30 %>
-      </div>
-    </div>
-
-    <div class="row mt-4">
-      <div class="col-2"></div>
       <div class="col-6">
-        <span class="h4">備考</span><span>（何か連絡事項があればここに記入してください）</span>
+        <table class="table table-bordered">
+          <thead class="bg-light">
+            <tr>
+              <td>時間</td>
+              <td>残レーン数</td>
+            </tr>
+          </thead>
+          <tbody>
+            <% @start_date.start_times.each do |start_time| %>
+              <tr>
+                <td><%= start_time.start_time.strftime("%H:%M") %></td>
+                <td><%= start_time.num_available_lanes %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-6">
+        <table class="table table-borderless">
+          <tbody>
+            <tr>
+              <td class="h4" style="width: 50%">スタート時間</td>
+              <td style="width: 50%"><%= f.time_select :start_time, start_hour: 11, end_hour: 21, minute_step: 30 %></td>
+            </tr>
+            <tr>
+              <td colspan="2"><span class="h4">備考</span><span>（何か連絡事項があればここに記入してください）</span></td>
+            </tr>
+            <tr>
+              <td colspan="2"><%= f.text_area :note, cols: "60%", rows: 5 %></td>
+            </tr>
+            <tr>
+              <td class="text-center" style="width: 50%"><%= f.submit "確認画面へ進む", class: "btn btn-success" %></td>
+              <td class="text-center" style="width: 50%"><%= f.submit "戻る", name: :back, class: "btn btn-primary" %></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
-
-    <div class="row mt-2">
-      <div class="col-8 mx-auto text-center">
-        <%= f.text_area :note, cols: "80%", rows: 5 %>
-      </div>
-    </div>
-
     <%= f.hidden_field :group_name %>
     <%= f.hidden_field :num_children %>
     <%= f.hidden_field :num_students %>
@@ -42,16 +62,5 @@
     <%= f.hidden_field :num_games %>
     <%= f.hidden_field :num_lanes %>
     <%= f.hidden_field :start_date %>
-
-    <div class="row mt-4">
-      <div class="col-4"></div>
-      <div class="col-2 text-center">
-        <%= f.submit "確認画面へ進む", class: "btn btn-success" %>
-      </div>
-      <div class="col-2 text-center">
-        <%= f.submit "戻る", name: :back, class: "btn btn-primary" %>
-      </div>
-    </div>
   <% end %>
-
 </div>
