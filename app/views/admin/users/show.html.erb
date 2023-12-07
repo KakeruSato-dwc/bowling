@@ -60,43 +60,38 @@
           </tr>
         </tbody>
       </table>
+      <div class="text-center">
+        <%= link_to "会員情報編集", edit_admin_user_path(@user.id), class: "btn btn-success text-center" %>
+      </div>
     </div>
     <div class="col-6">
       <table class="table table-bordered">
         <thead class="bg-light">
           <tr>
-            <td scope="col" style="width: 15%">実施日</td>
+            <td scope="col" style="width: 35%">実施日</td>
             <td scope="col" style="width: 50%">団体名</td>
             <td scope="col" style="width: 15%">人数</td>
-            <td scope="col" style="width: 20%">ステータス</td>
           </tr>
         </thead>
         <tbody>
+          <% days = ["日", "月", "火", "水", "木", "金", "土"] %>
           <% @reservations.each do |reservation| %>
             <tr>
-              <td><%= reservation.start_date %></td>
+              <td>
+                <%= link_to(admin_start_date_path(StartDate.find_by(start_date: reservation.start_date).id), style: "color: black; text-decoration: underline") do %>
+                  <%= reservation.start_date %> (<%= days[reservation.start_date.wday] %>)
+                <% end %>
+              </td>
               <td>
                 <%= link_to(admin_reservation_path(reservation.id), style: "color: black; text-decoration: underline") do %>
                   <%= reservation.group_name %>
                 <% end %>
                 </td>
               <td><%= reservation.num_children + reservation.num_students + reservation.num_adults %></td>
-              <% if reservation.is_active == true %>
-                <td class="text text-success">有効</td>
-              <% else %>
-                <td class="text text-danger">キャンセル</td>
-              <% end %>
             </tr>
           <% end %>
         </tbody>
       </table>
     </div>
   </div>
-
-  <div class="row mt-2">
-    <div class="col-6 text-center">
-      <%= link_to "会員情報編集", edit_admin_user_path(@user.id), class: "btn btn-success" %>
-    </div>
-  </div>
-
 </div>

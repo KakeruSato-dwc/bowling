@@ -27,10 +27,14 @@
                 <% end %>
               </td>
               <td><%= user.email %></td>
-              <td><%= user.reservations.count %></td>
-              <% date = user.reservations.find(user.reservations.count).start_date %>
+              <td><%= user.reservations.where(is_active: true).count %></td>
+              <% date = user.reservations.last.start_date %>
               <% days = ["日", "月", "火", "水", "木", "金", "土"] %>
-              <td><%= date %> (<%= days[date.wday] %>)</td>
+              <td>
+                <%= link_to(admin_start_date_path(StartDate.find_by(start_date: date).id), style: "color: black; text-decoration: underline") do %>
+                  <%= date %> (<%= days[date.wday] %>)
+                <% end %>
+              </td>
             </tr>
           <% end %>
         </tbody>

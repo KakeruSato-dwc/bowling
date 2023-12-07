@@ -10,6 +10,10 @@
       <table class="table table-bordered">
         <tbody>
           <tr>
+            <td class="bg-light">幹事</td>
+            <td><%= @reservation.user.last_name %> <%= @reservation.user.first_name %> 様</td>
+          </tr>
+          <tr>
             <td class="bg-light">団体名</td>
             <td><%= @reservation.group_name %> 様</td>
           </tr>

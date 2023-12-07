@@ -5,7 +5,7 @@ class Admin::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @reservations = @user.reservations.order(created_at: :desc).first(5)
+    @reservations = @user.reservations.where(is_active: true).order(created_at: :desc).first(5)
   end
 
   def edit

@@ -7,8 +7,17 @@ class Public::ReservationsController < ApplicationController
 
   def select_time
     @reservation = Reservation.new(reservation_params)
-    #startdate = Start_date.find_by(start_date: params[:reservation][:start_date])
-    #if startdate.is_active == false
+    startdate = StartDate.find_by(start_date: params[:reservation][:start_date])
+    if startdate.is_active == false
+      flash[:alert] = "この日は予約不可能となっております"
+      render :new
+      return
+    end
+    if "#{params[:reservation][:num_children]}" == "0" && "#{params[:reservation][:num_students]}" == "0" && "#{params[:reservation][:num_adults]}" == "0"
+      flash[:danger] = "0人では予約できません"
+      render :new
+      return
+    end
     @reservation.user_id = current_user.id
     @start_date = StartDate.find_by(start_date: params[:reservation][:start_date])
     render :select_time

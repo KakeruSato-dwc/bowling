@@ -29,6 +29,12 @@
     <div class="col-1 mt-auto">人</div>
   </div>
 
+  <div class="row mt-3">
+    <div class="col-8 ml-auto text-center h5">
+      <%= flash[:danger] %>
+    </div>
+  </div>
+
   <div class="row mt-4">
     <div class="col-1"></div>
     <div class="col-4 text-center h4">ゲーム数</div>
@@ -49,7 +55,10 @@
     <div class="col-4 text-center">
       <h4>実施日</h4>
     </div>
-    <div class="col-5 text-center my-auto"><%= f.date_field :start_date, min: Date.current.since(1.day), max: Date.current.since(3.month) %></div>
+    <div class="col-5 text-center my-auto">
+      <%= f.date_field :start_date, min: Date.current.since(1.day), max: Date.current.since(3.month) %>
+      <%= flash[:alert] %>
+    </div>
   </div>
 
   <div class="row mt-4">

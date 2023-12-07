@@ -1,7 +1,8 @@
 <div class="container">
   <div class="row mt-4">
     <div class="col-8 mx-auto text-center bg-light">
-      <h2><%= @start_date.start_date %> 残レーン数の編集</h2>
+      <% days = ["日", "月", "火", "水", "木", "金", "土"] %>
+      <h2><%= @start_date.start_date %> (<%= days[@start_date.start_date.wday] %>) 残レーン数の編集</h2>
     </div>
   </div>
 
@@ -27,7 +28,7 @@
         </table>
       </div>
     </div>
-    
+
     <div class="row mt-2">
       <div class="col-12 mx-auto text-center">
         <span>予約不可能な日としますか？</span>
