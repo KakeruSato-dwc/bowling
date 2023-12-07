@@ -51,7 +51,7 @@ class Admin::StartDatesController < ApplicationController
   end
 
   def start_date_params
-    params.require(:start_date).permit(:start_date,
+    params.require(:start_date).permit(:start_date, :is_active,
       start_times_attributes: [:id, :start_time, :num_available_lanes]
     )
   end

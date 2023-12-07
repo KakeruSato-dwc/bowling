@@ -29,6 +29,16 @@
         </table>
       </div>
     </div>
+    
+    <div class="row mt-2">
+      <div class="col-12 mx-auto text-center">
+        <span>予約不可能な日としますか？</span>
+        <%= f.radio_button :is_active, false, class: "ml-2" %>
+        <%= f.label :is_active_false, "YES" %>
+        <%= f.radio_button :is_active, true, checked: "checked", class: "ml-4" %>
+        <%= f.label :is_active_true, "NO" %>
+      </div>
+    </div>
 
     <div class="row mt-2">
       <div class="col-6 mx-auto text-center">

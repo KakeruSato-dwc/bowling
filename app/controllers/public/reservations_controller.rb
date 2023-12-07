@@ -7,6 +7,8 @@ class Public::ReservationsController < ApplicationController
 
   def select_time
     @reservation = Reservation.new(reservation_params)
+    #startdate = Start_date.find_by(start_date: params[:reservation][:start_date])
+    #if startdate.is_active == false
     @reservation.user_id = current_user.id
     @start_date = StartDate.find_by(start_date: params[:reservation][:start_date])
     render :select_time
