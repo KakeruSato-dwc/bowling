@@ -29,6 +29,11 @@
                   <% end %>
                 </li>
                 <li>
+                  <%= link_to(lane_status_path, class: "navbar-brand") do %>
+                    <span>残レーン状況</span>
+                  <% end %>
+                </li>
+                <li>
                   <%= link_to(new_reservation_path, class: "navbar-brand") do %>
                     <span>予約ページ</span>
                   <% end %>
@@ -44,6 +49,11 @@
                   <% end %>
                 </li>
               <% elsif admin_signed_in? %>
+                <li>
+                  <%= link_to(lane_status_path, class: "navbar-brand") do %>
+                    <span>残レーン状況</span>
+                  <% end %>
+                </li>
                 <li>
                   <%= link_to(admin_users_path, class: "navbar-brand") do %>
                     <span>会員一覧</span>
@@ -78,6 +88,11 @@
                 <li>
                   <%= link_to(fee_path, class: "navbar-brand") do %>
                     <span>料金表</span>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to(lane_status_path, class: "navbar-brand") do %>
+                    <span>残レーン状況</span>
                   <% end %>
                 </li>
                 <li>
