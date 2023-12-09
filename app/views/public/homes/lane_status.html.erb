@@ -27,11 +27,15 @@
             <tr>
               <td class="bg-light"><%= time %></td>
               <% @start_dates.each do |start_date| %>
-                <% if start_date.is_active == true %>
-                  <% if times.index(time) == 0 %>
-                    <td><%= start_date.start_times[times.index(time)].num_available_lanes %> レーン</td>
+                <% if start_date.start_times[times.index(time)].presence %>
+                  <% if start_date.is_active == true %>
+                    <% if times.index(time) == 0 %>
+                      <td><%= start_date.start_times[times.index(time)].num_available_lanes %> レーン</td>
+                    <% else %>
+                      <td><%= start_date.start_times[times.index(time)].num_available_lanes %></td>
+                    <% end %>
                   <% else %>
-                    <td><%= start_date.start_times[times.index(time)].num_available_lanes %></td>
+                    <td></td>
                   <% end %>
                 <% else %>
                   <td></td>

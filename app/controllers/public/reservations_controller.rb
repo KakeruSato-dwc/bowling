@@ -8,6 +8,11 @@ class Public::ReservationsController < ApplicationController
   def select_time
     @reservation = Reservation.new(reservation_params)
     startdate = StartDate.find_by(start_date: params[:reservation][:start_date])
+    unless startdate
+      flash[:alert] = "この日は予約不可能となっております"
+      render :new
+      return
+    end
     if startdate.is_active == false
       flash[:alert] = "この日は予約不可能となっております"
       render :new
