@@ -39,12 +39,13 @@ class Public::ReservationsController < ApplicationController
     @start_date.start_times.each do |start_time|
       time = start_time.start_time
       if time.strftime("%H:%M") == "#{params[:reservation]["start_time(4i)"]}:#{params[:reservation]["start_time(5i)"]}"
-        if @reservation.num_lanes > start_time.num_available_lanes
+        if params[:reservation][:num_lanes].to_i > start_time.num_available_lanes
           render :select_time
           return
         end
       end
     end
+    
     render :confirm
   end
 

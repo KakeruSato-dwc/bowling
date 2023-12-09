@@ -14,6 +14,13 @@
   </div>
 
   <%= form_with model: @reservation, url: confirm_path, method: :post do |f| %>
+    <% @num_members = @reservation.num_children + @reservation.num_students + @reservation.num_adults %>
+    <% if @num_members % 4 == 0 %>
+      <% @num_lanes = (@num_members / 4).floor %>
+    <% else %>
+      <% @num_lanes = (@num_members / 4).floor + 1 %>
+    <% end %>
+    <%= f.hidden_field :num_lanes, :value => @num_lanes %>
     <div class="row mt-4">
       <div class="col-6">
         <table class="table table-bordered">
@@ -38,6 +45,10 @@
         <table class="table table-borderless">
           <tbody>
             <tr>
+              <td class="h4" style="width: 50%">使用レーン数</td>
+              <td class="h5" style="width: 50%"><%= @num_lanes %> レーン</td>
+            </tr>
+            <tr>
               <td class="h4" style="width: 50%">スタート時間</td>
               <td style="width: 50%"><%= f.time_select :start_time, start_hour: 11, end_hour: 20, minute_step: 30 %></td>
             </tr>
@@ -60,7 +71,6 @@
     <%= f.hidden_field :num_students %>
     <%= f.hidden_field :num_adults %>
     <%= f.hidden_field :num_games %>
-    <%= f.hidden_field :num_lanes %>
     <%= f.hidden_field :start_date %>
   <% end %>
 </div>
