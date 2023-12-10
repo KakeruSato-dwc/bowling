@@ -58,7 +58,7 @@ class Public::ReservationsController < ApplicationController
     @reservation = Reservation.new(reservation_params)
     @reservation.user_id = current_user.id
     @start_date = StartDate.find_by(start_date: @reservation.start_date)
-    @lane_details = @reservation.num_lanes.times{@reservation.lane_details.build}
+    @reservation.num_lanes.times{@reservation.lane_details.build}
     if params[:back]
       render :select_time
       return
@@ -82,9 +82,12 @@ class Public::ReservationsController < ApplicationController
     @reservation = Reservation.new(reservation_params)
     @reservation.user_id = current_user.id
     @start_date = StartDate.find_by(start_date: @reservation.start_date)
-    @lane_details = @reservation.num_lanes.times{@reservation.lane_details.build}
     if params[:back]
       render :confirm
+      return
+    end
+    unless params[:reservation][:lane_details_attributes]["0"][:name_1].presence
+      render :create
       return
     end
     @start_date.start_times.each do |start_time|

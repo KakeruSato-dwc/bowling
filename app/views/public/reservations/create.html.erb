@@ -1,1 +1,57 @@
-<h1>Create</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-4 mt-3">
+      <h2 class="bg-light text-center">メンバー表入力</h2>
+    </div>
+  </div>
+
+  <%= form_with model: @reservation, url: members_table_path, method: :post do |f| %>
+    <%= f.hidden_field :group_name %>
+    <%= f.hidden_field :num_children %>
+    <%= f.hidden_field :num_students %>
+    <%= f.hidden_field :num_adults %>
+    <%= f.hidden_field :num_games %>
+    <%= f.hidden_field :num_lanes %>
+    <%= f.hidden_field :start_date %>
+    <%= f.hidden_field :start_time %>
+    <%= f.hidden_field :note %>
+    <%= f.hidden_field :games_fee %>
+    <div class="row mt-4">
+      <div class="col-12 mx-auto text-center">
+        <table class="table table-bordered">
+          <thead class="bg-light">
+            <tr>
+              <td></td>
+              <td>第１投球者</td>
+              <td>第２投球者</td>
+              <td>第３投球者</td>
+              <td>第４投球者</td>
+            </tr>
+          </thead>
+          <tbody>
+            <% lanes = (1..24).to_a %>
+            <%= f.fields_for :lane_details do |field| %>
+              <tr>
+                <td><%= lanes[field.index] %> レーン</td>
+                <td><%= field.text_field :name_1, autofocus: true, style: "border: none; outline: none" %></td>
+                <td><%= field.text_field :name_2, style: "border: none; outline: none" %></td>
+                <td><%= field.text_field :name_3, style: "border: none; outline: none" %></td>
+                <td><%= field.text_field :name_4, style: "border: none; outline: none" %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-4"></div>
+      <div class="col-2 text-center">
+        <%= f.submit "予約を確定する", class: "btn btn-success" %>
+      </div>
+      <div class="col-2 text-center">
+        <%= f.submit "戻る", name: :back, class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+</div>

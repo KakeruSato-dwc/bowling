@@ -35,10 +35,11 @@ ActiveRecord::Schema.define(version: 2023_12_10_120303) do
   end
 
   create_table "lane_details", force: :cascade do |t|
-    t.string "name_1", null: false
-    t.string "name_2", null: false
-    t.string "name_3", null: false
+    t.string "name_1"
+    t.string "name_2"
+    t.string "name_3"
     t.string "name_4"
+    t.integer "reservation_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

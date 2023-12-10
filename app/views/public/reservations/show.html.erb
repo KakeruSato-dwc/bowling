@@ -5,7 +5,7 @@
     </div>
   </div>
 
-   <div class="row mt-4">
+  <div class="row mt-4">
     <div class="col-8 mx-auto">
       <table class="table table-bordered">
         <tbody>
@@ -49,6 +49,36 @@
       </table>
     </div>
   </div>
+
+  <% if @reservation.lane_details[0].name_1.presence %>
+    <div class="row mt-4">
+      <div class="col-12 mx-auto text-center">
+        <table class="table table-bordered">
+          <thead class="bg-light">
+            <tr>
+              <td></td>
+              <td>第１投球者</td>
+              <td>第２投球者</td>
+              <td>第３投球者</td>
+              <td>第４投球者</td>
+            </tr>
+          </thead>
+          <tbody>
+            <% array = (1..@reservation.num_lanes).to_a %>
+            <% array.each do |i| %>
+              <tr>
+                <td><%= i %> レーン</td>
+                <td><%= @reservation.lane_details[i-1].name_1 %></td>
+                <td><%= @reservation.lane_details[i-1].name_2 %></td>
+                <td><%= @reservation.lane_details[i-1].name_3 %></td>
+                <td><%= @reservation.lane_details[i-1].name_4 %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
 
   <% if @reservation.start_date >= Date.current %>
     <div class="row mt-2">
