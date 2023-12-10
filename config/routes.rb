@@ -38,10 +38,12 @@ Rails.application.routes.draw do
   patch "/users/information" => "public/users#update", as: "update_user_information"
 
   scope module: "public" do
-    resources :reservations, only: [:new, :create, :index, :show]
+    resources :reservations, only: [:new, :index, :show]
   end
   post "/reservations/select_time" => "public/reservations#select_time", as: "select_time"
   post "/reservations/confirm" => "public/reservations#confirm", as: "confirm"
+  post "/reservations/create" => "public/reservations#create", as: "create"
+  post "/reservations/members_table" => "public/reservations#members_table", as: "members_table"
   get "/complete" => "public/reservations#complete", as: "complete"
   get "/reservations/:id/confirm_cancel" => "public/reservations#confirm_cancel", as: "confirm_cancel"
   patch "/reservations/:id/cancel" => "public/reservations#cancel", as: "cancel"

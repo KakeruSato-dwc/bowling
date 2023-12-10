@@ -7,6 +7,16 @@ class Public::ReservationsController < ApplicationController
 
   def select_time
     @reservation = Reservation.new(reservation_params)
+    unless params[:reservation][:group_name].presence
+      flash[:caution] = "団体名を記入してください"
+      render :new
+      return
+    end
+    if "#{params[:reservation][:num_children]}" == "0" && "#{params[:reservation][:num_students]}" == "0" && "#{params[:reservation][:num_adults]}" == "0"
+      flash[:danger] = "0人では予約できません"
+      render :new
+      return
+    end
     startdate = StartDate.find_by(start_date: params[:reservation][:start_date])
     unless startdate
       flash[:alert] = "この日は予約不可能となっております"
@@ -15,11 +25,6 @@ class Public::ReservationsController < ApplicationController
     end
     if startdate.is_active == false
       flash[:alert] = "この日は予約不可能となっております"
-      render :new
-      return
-    end
-    if "#{params[:reservation][:num_children]}" == "0" && "#{params[:reservation][:num_students]}" == "0" && "#{params[:reservation][:num_adults]}" == "0"
-      flash[:danger] = "0人では予約できません"
       render :new
       return
     end
@@ -45,7 +50,7 @@ class Public::ReservationsController < ApplicationController
         end
       end
     end
-    
+
     render :confirm
   end
 
@@ -53,8 +58,33 @@ class Public::ReservationsController < ApplicationController
     @reservation = Reservation.new(reservation_params)
     @reservation.user_id = current_user.id
     @start_date = StartDate.find_by(start_date: @reservation.start_date)
+    @lane_details = @reservation.num_lanes.times{@reservation.lane_details.build}
     if params[:back]
       render :select_time
+      return
+    end
+    if params[:member]
+      render :create
+      return
+    end
+    @start_date.start_times.each do |start_time|
+      time = start_time.start_time
+      if time.strftime("%H:%M") == @reservation.start_time.strftime("%H:%M")
+        remaining_lanes = start_time.num_available_lanes - @reservation.num_lanes
+        start_time.update(num_available_lanes: remaining_lanes)
+      end
+    end
+    @reservation.save
+    redirect_to complete_path
+  end
+
+  def members_table
+    @reservation = Reservation.new(reservation_params)
+    @reservation.user_id = current_user.id
+    @start_date = StartDate.find_by(start_date: @reservation.start_date)
+    @lane_details = @reservation.num_lanes.times{@reservation.lane_details.build}
+    if params[:back]
+      render :confirm
       return
     end
     @start_date.start_times.each do |start_time|
@@ -92,6 +122,8 @@ class Public::ReservationsController < ApplicationController
   private
 
   def reservation_params
-    params.require(:reservation).permit(:group_name, :num_children, :num_students, :num_adults, :num_games, :num_lanes, :start_date, :start_time, :note, :games_fee)
+    params.require(:reservation).permit(:group_name, :num_children, :num_students, :num_adults, :num_games, :num_lanes, :start_date, :start_time, :note, :games_fee,
+      lane_details_attributes: [:id, :name_1, :name_2, :name_3, :name_4]
+    )
   end
 end

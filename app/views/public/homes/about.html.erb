@@ -39,15 +39,25 @@
   </div>
 
   <div class="row mt-5">
+    <div class="h5 col-8 mx-auto">残レーン数の確認はこちらから</div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-8 mx-auto text-center">
+      <%= link_to "残レーン状況", lane_status_path, class: "btn btn-primary" %>
+    </div>
+  </div>
+
+  <div class="row mt-5">
     <div class="h5 col-8 mx-auto">予約ページはこちらから（必ずログインしてください）</div>
   </div>
 
   <div class="row mt-2">
     <div class="col-8 mx-auto text-center">
       <% if user_signed_in? %>
-        <%= link_to "予約情報入力", new_reservation_path, class: "btn btn-primary" %>
+        <%= link_to "予約情報入力", new_reservation_path, class: "btn btn-success" %>
       <% else %>
-        <%= link_to "予約情報入力", new_reservation_path, class: "btn btn-primary disabled" %>
+        <%= link_to "予約情報入力", new_reservation_path, class: "btn btn-success disabled" %>
       <% end %>
     </div>
   </div>

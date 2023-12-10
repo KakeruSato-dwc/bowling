@@ -20,6 +20,13 @@
     <div class="col-5 text-center"><%= f.text_field :group_name, class: "w-100" %></div>
   </div>
 
+  <div class="row mt-1">
+    <div class="col-5"></div>
+    <div class="col-5 text-center">
+      <%= flash[:caution] %>
+    </div>
+  </div>
+
   <div class="row mt-3">
     <div class="col-1"></div>
     <div class="col-4 text-center h4 my-auto">人数</div>
@@ -30,7 +37,7 @@
   </div>
 
   <div class="row mt-3">
-    <div class="col-8 ml-auto text-center h5">
+    <div class="col-8 ml-auto text-center">
       <%= flash[:danger] %>
     </div>
   </div>

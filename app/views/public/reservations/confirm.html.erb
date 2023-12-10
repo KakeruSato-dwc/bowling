@@ -55,7 +55,7 @@
     </div>
   </div>
 
-  <%= form_with model: @reservation, url: reservations_path, method: :post do |f| %>
+  <%= form_with model: @reservation, url: create_path, method: :post do |f| %>
     <%= f.hidden_field :group_name %>
     <%= f.hidden_field :num_children %>
     <%= f.hidden_field :num_students %>
@@ -66,7 +66,14 @@
     <%= f.hidden_field :start_time %>
     <%= f.hidden_field :note %>
     <%= f.hidden_field :games_fee, :value => @sum %>
-    <div class="row mt-3">
+    <div class="row mt-5">
+      <div class="h5 col-10 mx-auto text-center">
+        メンバー表の記入はこちらから（任意）
+        <%= f.submit "メンバー表入力", name: :member, class: "btn btn-info" %>
+      </div>
+    </div>
+
+    <div class="row mt-4">
       <div class="col-4"></div>
       <div class="col-2 text-center">
         <%= f.submit "予約を確定する", class: "btn btn-success" %>
