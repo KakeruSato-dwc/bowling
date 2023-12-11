@@ -86,9 +86,14 @@ class Public::ReservationsController < ApplicationController
       render :confirm
       return
     end
-    unless params[:reservation][:lane_details_attributes]["0"][:name_1].presence
-      render :create
-      return
+    (1..@reservation.num_lanes).to_a.each do |i|
+      name_1 = params[:reservation][:lane_details_attributes]["#{i - 1}"][:name_1]
+      name_2 = params[:reservation][:lane_details_attributes]["#{i - 1}"][:name_2]
+      name_3 = params[:reservation][:lane_details_attributes]["#{i - 1}"][:name_3]
+      unless name_1.presence && name_2.presence && name_3.presence
+        render :create
+        return
+      end
     end
     @start_date.start_times.each do |start_time|
       time = start_time.start_time
