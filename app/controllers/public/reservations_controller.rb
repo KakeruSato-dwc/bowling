@@ -91,6 +91,7 @@ class Public::ReservationsController < ApplicationController
       name_2 = params[:reservation][:lane_details_attributes]["#{i - 1}"][:name_2]
       name_3 = params[:reservation][:lane_details_attributes]["#{i - 1}"][:name_3]
       unless name_1.presence && name_2.presence && name_3.presence
+        flash[:warning] = "第１投球者、第２投球者、第３投球者の欄には必ず名前を記入してください"
         render :create
         return
       end
