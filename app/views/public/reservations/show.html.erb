@@ -50,38 +50,6 @@
     </div>
   </div>
 
-  <% if @reservation.lane_details.presence %>
-    <% if @reservation.lane_details[0].name_1.presence %>
-      <div class="row mt-4">
-        <div class="col-12 mx-auto text-center">
-          <table class="table table-bordered">
-            <thead class="bg-light">
-              <tr>
-                <td></td>
-                <td>第１投球者</td>
-                <td>第２投球者</td>
-                <td>第３投球者</td>
-                <td>第４投球者</td>
-              </tr>
-            </thead>
-            <tbody>
-              <% array = (1..@reservation.num_lanes).to_a %>
-              <% array.each do |i| %>
-                <tr>
-                  <td><%= i %> レーン</td>
-                  <td><%= @reservation.lane_details[i-1].name_1 %></td>
-                  <td><%= @reservation.lane_details[i-1].name_2 %></td>
-                  <td><%= @reservation.lane_details[i-1].name_3 %></td>
-                  <td><%= @reservation.lane_details[i-1].name_4 %></td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    <% end %>
-  <% end %>
-
   <% if @reservation.start_date >= Date.current %>
     <div class="row mt-2">
       <div class="col-4"></div>
@@ -99,4 +67,49 @@
       </div>
     </div>
   <% end %>
+
+  <% if @reservation.lane_details.presence && @reservation.lane_details[0].name_1.presence %>
+    <div class="row mt-4">
+      <div class="col-12 mx-auto text-center">
+        <table class="table table-bordered">
+          <thead class="bg-light">
+            <tr>
+              <td></td>
+              <td>第１投球者</td>
+              <td>第２投球者</td>
+              <td>第３投球者</td>
+              <td>第４投球者</td>
+            </tr>
+          </thead>
+          <tbody>
+            <% array = (1..@reservation.num_lanes).to_a %>
+            <% @lane_details.each do |lane_detail| %>
+              <tr>
+                <td><%= @lane_details.index(lane_detail) + 1 %> レーン</td>
+                <td><%= lane_detail.name_1 %></td>
+                <td><%= lane_detail.name_2 %></td>
+                <td><%= lane_detail.name_3 %></td>
+                <td><%= lane_detail.name_4 %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-8 mx-auto text-center">
+        <%= link_to "メンバー表を再度入力する", reservation_path(@reservation.id), method: :delete, class: "btn btn-warning"; %>
+      </div>
+    </div>
+  <% else %>
+    <div class="row mt-2">
+      <div class="col-8 mx-auto">
+        <h5>メンバー表の入力はこちらから</h5>
+        <div class="text-center"><%= link_to "メンバー表を入力する", members_path(@reservation.id), class: "btn btn-success"; %></div>
+      </div>
+    </div>
+  <% end %>
+
+
 </div>

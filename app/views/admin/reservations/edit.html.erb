@@ -48,7 +48,7 @@
             </tr>
             <tr>
               <td class="bg-light">スタート時間</td>
-              <td><%= f.time_select :start_time, start_hour: 10, end_hour: 21, minute_step: 30 %></td>
+              <td><%= f.time_select :start_time, start_hour: 10, end_hour: 20, minute_step: 30 %></td>
             </tr>
             <tr>
               <td class="bg-light">ステータス</td>
@@ -63,7 +63,36 @@
         </table>
       </div>
     </div>
-    
+
+    <% if @lane_details.presence && @lane_details[0].name_1.presence %>
+      <div class="row mt-4">
+        <div class="col-12 mx-auto text-center">
+          <table class="table table-bordered mt-2">
+            <thead class="bg-light">
+              <tr>
+                <td></td>
+                <td>第１投球者</td>
+                <td>第２投球者</td>
+                <td>第３投球者</td>
+                <td>第４投球者</td>
+              </tr>
+            </thead>
+            <tbody>
+              <%= f.fields_for :lane_details do |field| %>
+                <tr>
+                  <td><%= field.index + 1 %> レーン</td>
+                  <td><%= field.text_field :name_1, autofocus: true, style: "border: none; outline: none" %></td>
+                  <td><%= field.text_field :name_2, style: "border: none; outline: none" %></td>
+                  <td><%= field.text_field :name_3, style: "border: none; outline: none" %></td>
+                  <td><%= field.text_field :name_4, style: "border: none; outline: none" %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% end %>
+
     <div class="row mt-2">
       <div class="col-8 mx-auto text-center">
         <%= f.submit "編集内容を保存", class: "btn btn-success" %>

@@ -116,6 +116,7 @@ class Public::ReservationsController < ApplicationController
 
   def show
     @reservation = Reservation.find(params[:id])
+    @lane_details = @reservation.lane_details
   end
 
   def confirm_cancel
@@ -126,6 +127,19 @@ class Public::ReservationsController < ApplicationController
     @reservation = Reservation.find(params[:id])
     @reservation.update(is_active: false)
     redirect_to reservations_path
+  end
+
+  def destroy
+    reservation = Reservation.find(params[:id])
+    lane_details = reservation.lane_details.all
+    lane_details.destroy_all
+    redirect_to members_path(reservation.id)
+  end
+
+  def members
+    @reservation = Reservation.find(params[:id])
+    @lane_detail = LaneDetail.new
+    @lane_details = @reservation.lane_details.all
   end
 
   private

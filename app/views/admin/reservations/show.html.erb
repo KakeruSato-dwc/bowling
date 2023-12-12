@@ -80,10 +80,17 @@
             <% array.each do |i| %>
               <tr>
                 <td><%= i %> レーン</td>
-                <td><%= @lane_details[i-1].name_1 %></td>
-                <td><%= @lane_details[i-1].name_2 %></td>
-                <td><%= @lane_details[i-1].name_3 %></td>
-                <td><%= @lane_details[i-1].name_4 %></td>
+                <% if @lane_details[i-1].presence %>
+                  <td><%= @lane_details[i-1].name_1 %></td>
+                  <td><%= @lane_details[i-1].name_2 %></td>
+                  <td><%= @lane_details[i-1].name_3 %></td>
+                  <td><%= @lane_details[i-1].name_4 %></td>
+                <% else %>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                <% end %>
               </tr>
             <% end %>
           </tbody>

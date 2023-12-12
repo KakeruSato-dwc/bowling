@@ -1,7 +1,7 @@
 class Admin::ReservationsController < ApplicationController
   def index
     reservations = Reservation.page(params[:page]).where("start_date < ?", Date.current)
-    @reservations = reservations.order(start_time: :asc).order(start_date: :asc)
+    @reservations = reservations.order(start_date: :asc, start_time: :asc)
   end
 
   def show
@@ -18,7 +18,7 @@ class Admin::ReservationsController < ApplicationController
     @reservation = Reservation.find(params[:id])
     @lane_details = @reservation.lane_details.all
     if @reservation.update(reservation_params)
-      fixed_games_fee = @reservation.num_children * 400 + @reservation.num_students * 500 + @reservation.num_adults * 600
+      fixed_games_fee = (@reservation.num_children * 400 + @reservation.num_students * 500 + @reservation.num_adults * 600) * @reservation.num_games
       @reservation.update(games_fee: fixed_games_fee)
       redirect_to admin_reservation_path(@reservation.id)
     else
