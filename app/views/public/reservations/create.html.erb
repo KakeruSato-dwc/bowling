@@ -18,7 +18,7 @@
     <%= f.hidden_field :games_fee %>
     <div class="row mt-4">
       <div class="col-12 mx-auto text-center">
-        <h5><%= flash[:warning] %></h5>
+        <h5>第１投球者、第２投球者、第３投球者の欄には必ず名前を記入してください</h5>
         <table class="table table-bordered mt-2">
           <thead class="bg-light">
             <tr>
@@ -48,7 +48,7 @@
     <div class="row mt-3">
       <div class="col-4"></div>
       <div class="col-2 text-center">
-        <%= f.submit "予約を確定する", class: "btn btn-success" %>
+        <%= f.submit "確認画面へ進む", class: "btn btn-success" %>
       </div>
       <div class="col-2 text-center">
         <%= f.submit "戻る", name: :back, class: "btn btn-primary" %>

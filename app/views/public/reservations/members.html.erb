@@ -51,4 +51,15 @@
     </div>
   </div>
 
+  <div class="row mt-2">
+    <div class="col-8 mx-auto text-center">
+      <% @service_fee = (@reservation.num_children + @reservation.num_students + @reservation.num_adults) * 100 %>
+      <% @updated_fee = @reservation.games_fee - @service_fee %>
+      <%= form_with model: @reservation, url: reservation_path(@reservation.id), method: :patch do |f| %>
+        <%= f.hidden_field :games_fee, :value => @updated_fee %>
+        <%= f.submit "メンバー表を送信する", class: "btn btn-success" %>
+      <% end %>
+    </div>
+  </div>
+
 </div>

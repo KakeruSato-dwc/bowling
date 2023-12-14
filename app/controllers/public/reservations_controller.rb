@@ -58,7 +58,9 @@ class Public::ReservationsController < ApplicationController
     @reservation = Reservation.new(reservation_params)
     @reservation.user_id = current_user.id
     @start_date = StartDate.find_by(start_date: @reservation.start_date)
-    @reservation.num_lanes.times{@reservation.lane_details.build}
+    unless @reservation.lane_details.presence
+      @reservation.num_lanes.times{@reservation.lane_details.build}
+    end
     if params[:back]
       render :select_time
       return
@@ -83,6 +85,7 @@ class Public::ReservationsController < ApplicationController
     @reservation.user_id = current_user.id
     @start_date = StartDate.find_by(start_date: @reservation.start_date)
     if params[:back]
+      @reservation.lane_details.destroy_all
       render :confirm
       return
     end
@@ -91,20 +94,11 @@ class Public::ReservationsController < ApplicationController
       name_2 = params[:reservation][:lane_details_attributes]["#{i - 1}"][:name_2]
       name_3 = params[:reservation][:lane_details_attributes]["#{i - 1}"][:name_3]
       unless name_1.presence && name_2.presence && name_3.presence
-        flash[:warning] = "第１投球者、第２投球者、第３投球者の欄には必ず名前を記入してください"
         render :create
         return
       end
     end
-    @start_date.start_times.each do |start_time|
-      time = start_time.start_time
-      if time.strftime("%H:%M") == @reservation.start_time.strftime("%H:%M")
-        remaining_lanes = start_time.num_available_lanes - @reservation.num_lanes
-        start_time.update(num_available_lanes: remaining_lanes)
-      end
-    end
-    @reservation.save
-    redirect_to complete_path
+    render :confirm
   end
 
   def complete
@@ -126,7 +120,21 @@ class Public::ReservationsController < ApplicationController
   def cancel
     @reservation = Reservation.find(params[:id])
     @reservation.update(is_active: false)
+    @start_date = StartDate.find_by(start_date: @reservation.start_date)
+    @start_date.start_times.each do |start_time|
+      time = start_time.start_time
+      if time.strftime("%H:%M") == @reservation.start_time.strftime("%H:%M")
+        fixed_lanes = start_time.num_available_lanes + @reservation.num_lanes
+        start_time.update(num_available_lanes: fixed_lanes)
+      end
+    end
     redirect_to reservations_path
+  end
+
+  def update
+    @reservation = Reservation.find(params[:id])
+    @reservation.update(reservation_params)
+    redirect_to reservation_path(@reservation.id)
   end
 
   def destroy

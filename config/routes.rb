@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   patch "/users/information" => "public/users#update", as: "update_user_information"
 
   scope module: "public" do
-    resources :reservations, only: [:new, :index, :show, :destroy]
+    resources :reservations, only: [:new, :index, :show, :update, :destroy]
   end
   post "/reservations/select_time" => "public/reservations#select_time", as: "select_time"
   post "/reservations/confirm" => "public/reservations#confirm", as: "confirm"

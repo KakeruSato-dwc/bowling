@@ -8,8 +8,13 @@
   <% @children_fee = @reservation.num_children * 400 %>
   <% @students_fee = @reservation.num_students * 500 %>
   <% @adults_fee = @reservation.num_adults * 600 %>
-  <% @sum = (@children_fee + @students_fee + @adults_fee) * @reservation.num_games %>
-
+  <% @service_fee = (@reservation.num_children + @reservation.num_students + @reservation.num_adults) * 100 %>
+  <!-- メンバー表があれば、一人あたり100円引きされる。 -->
+  <% if @reservation.lane_details.presence %>
+    <% @sum = (@children_fee + @students_fee + @adults_fee) * @reservation.num_games - @service_fee %>
+  <% else %>
+    <% @sum = (@children_fee + @students_fee + @adults_fee) * @reservation.num_games %>
+  <% end %>
   <div class="row mt-4">
     <div class="col-8 mx-auto">
       <table class="table table-bordered">
@@ -55,6 +60,35 @@
     </div>
   </div>
 
+  <% if @reservation.lane_details.presence && @reservation.lane_details[0].name_1.presence %>
+    <div class="row mt-4">
+      <div class="col-12 mx-auto text-center">
+        <table class="table table-bordered">
+          <thead class="bg-light">
+            <tr>
+              <td></td>
+              <td>第１投球者</td>
+              <td>第２投球者</td>
+              <td>第３投球者</td>
+              <td>第４投球者</td>
+            </tr>
+          </thead>
+          <tbody>
+            <% @reservation.lane_details.each do |lane_detail| %>
+              <tr>
+                <td><%= @reservation.lane_details.index(lane_detail) + 1 %> レーン</td>
+                <td><%= lane_detail.name_1 %></td>
+                <td><%= lane_detail.name_2 %></td>
+                <td><%= lane_detail.name_3 %></td>
+                <td><%= lane_detail.name_4 %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
+
   <%= form_with model: @reservation, url: create_path, method: :post do |f| %>
     <%= f.hidden_field :group_name %>
     <%= f.hidden_field :num_children %>
@@ -66,12 +100,37 @@
     <%= f.hidden_field :start_time %>
     <%= f.hidden_field :note %>
     <%= f.hidden_field :games_fee, :value => @sum %>
-    <div class="row mt-4">
-      <div class="h5 col-10 mx-auto text-center">
-        メンバー表の記入はこちらから（任意）
-        <%= f.submit "メンバー表入力", name: :member, class: "btn btn-info" %>
-      </div>
-    </div>
+
+    <% if @reservation.start_date >= Date.current.since(3.days) %>
+      <% if @reservation.lane_details.presence %>
+        <%= f.fields_for :lane_details do |field| %>
+          <%= field.hidden_field :name_1 %>
+          <%= field.hidden_field :name_2 %>
+          <%= field.hidden_field :name_3 %>
+          <%= field.hidden_field :name_4 %>
+        <% end %>
+        <div class="row mt-4">
+          <div class="h5 col-10 mx-auto text-center">
+            メンバー表を書き直す
+            <%= f.submit "メンバー表入力", name: :member, class: "btn btn-info" %>
+          </div>
+        </div>
+      <% else %>
+        <div class="row mt-4">
+          <div class="h5 col-10 mx-auto text-center">
+            メンバー表の記入はこちらから（任意）
+            <%= f.submit "メンバー表入力", name: :member, class: "btn btn-info" %>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-8 mx-auto">
+            メンバー表を記入していただくと、1ゲーム目の料金が一人あたり100 円安くなります。
+            ただし修正が必要な場合は、再度予約し直していただくこともありますので、人数が
+            確定してからメンバー表を記入することを推奨します。期限は実施日の3日前までとなります。
+          </div>
+        </div>
+      <% end %>
+    <% end %>
 
     <div class="row mt-4">
       <div class="col-4"></div>

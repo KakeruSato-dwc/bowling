@@ -82,7 +82,6 @@
             </tr>
           </thead>
           <tbody>
-            <% array = (1..@reservation.num_lanes).to_a %>
             <% @lane_details.each do |lane_detail| %>
               <tr>
                 <td><%= @lane_details.index(lane_detail) + 1 %> レーン</td>
@@ -97,6 +96,7 @@
       </div>
     </div>
 
+    <!--
     <div class="row mt-2">
       <div class="col-8 mx-auto text-center">
         <%= link_to "メンバー表を再度入力する", reservation_path(@reservation.id), method: :delete, class: "btn btn-warning"; %>
@@ -109,6 +109,7 @@
         <div class="text-center"><%= link_to "メンバー表を入力する", members_path(@reservation.id), class: "btn btn-success"; %></div>
       </div>
     </div>
+    -->
   <% end %>
 
 
