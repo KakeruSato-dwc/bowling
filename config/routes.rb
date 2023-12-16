@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   root to: "public/homes#top"
   get "/fee" => "public/homes#about", as: "fee"
   get "/lane_status" => "public/homes#lane_status", as: "lane_status"
+  get "/map" => "public/homes#map", as: "map"
 
   devise_for :users, skip: [:password], controllers: {
     registrations: "public/registrations",
