@@ -6,7 +6,7 @@ class Public::HomesController < ApplicationController
   end
 
   def lane_status
-    @start_dates = StartDate.where("start_date >= ?", Date.current).order(start_date: :asc).page(params[:page]).per(7)
+    @start_dates = StartDate.where("start_date > ?", Date.current).order(start_date: :asc).page(params[:page]).per(7)
   end
 
   def map

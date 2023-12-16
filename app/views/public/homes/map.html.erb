@@ -1,3 +1,11 @@
+<div class="container">
+  <div class="row">
+    <div class="col-10 mb-2">
+      <span class="h4">マップ</span><span>（ピンの位置が当店の場所となります）</span>
+    </div>
+  </div>
+</div>
+
 <div id='map'></div>
 
 <style>
@@ -8,9 +16,13 @@
 
 <script>
 function initMap(){
-  let map = new google.maps.Map(document.getElementById('map'), {
-  center: {lat: 36.397, lng: 140.644},
-  zoom: 8
+  map = new google.maps.Map(document.getElementById('map'), {
+  center: {lat: 36.097, lng: 140.111},
+  zoom: 12
+  });
+  marker = new google.maps.Marker({
+    position: {lat: 36.097, lng: 140.111},
+    map: map
   });
 }
 </script>

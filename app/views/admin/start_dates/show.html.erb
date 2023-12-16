@@ -77,9 +77,11 @@
     </div>
   <% end %>
 
-  <div class="row mt-2">
-    <div class="col-6 mx-auto text-center">
-      <%= link_to "残レーン数を編集", edit_admin_start_date_path(@start_date.id), class: "btn btn-success" %>
+  <% if @start_date.start_date > Date.current %>
+    <div class="row mt-2">
+      <div class="col-6 mx-auto text-center">
+        <%= link_to "残レーン数を編集", edit_admin_start_date_path(@start_date.id), class: "btn btn-success" %>
+      </div>
     </div>
-  </div>
+  <% end %>
 </div>

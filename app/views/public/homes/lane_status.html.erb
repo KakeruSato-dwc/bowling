@@ -12,7 +12,7 @@
   </div>
 
   <div class="row mt-2">
-    <% times = ["11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00"] %>
+    <% times = ["11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30"] %>
     <% days = ["日", "月", "火", "水", "木", "金", "土"] %>
     <div class="col-12 text-center">
       <table class="table table-bordered">
@@ -27,15 +27,11 @@
             <tr>
               <td class="bg-light"><%= time %></td>
               <% @start_dates.each do |start_date| %>
-                <% if start_date.start_times[times.index(time)].presence %>
-                  <% if start_date.is_active == true %>
-                    <% if times.index(time) == 0 %>
-                      <td><%= start_date.start_times[times.index(time)].num_available_lanes %> レーン</td>
-                    <% else %>
-                      <td><%= start_date.start_times[times.index(time)].num_available_lanes %></td>
-                    <% end %>
+                <% if start_date.is_active == true %>
+                  <% if times.index(time) == 0 %>
+                    <td><%= start_date.start_times[times.index(time)].num_available_lanes %> レーン</td>
                   <% else %>
-                    <td>-</td>
+                    <td><%= start_date.start_times[times.index(time)].num_available_lanes %></td>
                   <% end %>
                 <% else %>
                   <td>-</td>

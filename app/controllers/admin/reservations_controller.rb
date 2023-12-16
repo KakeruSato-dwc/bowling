@@ -1,7 +1,7 @@
 class Admin::ReservationsController < ApplicationController
   def index
     reservations = Reservation.page(params[:page]).where("start_date < ?", Date.current)
-    @reservations = reservations.order(start_date: :asc, start_time: :asc)
+    @reservations = reservations.order(start_date: :desc, start_time: :desc)
   end
 
   def show
