@@ -85,6 +85,11 @@
                   <% end %>
                 </li>
                 <li>
+                  <%= link_to(admin_notifications_path, class: "navbar-brand") do %>
+                    <span>通知</span>
+                  <% end %>
+                </li>
+                <li>
                   <%= link_to(destroy_admin_session_path, method: :delete, class: "navbar-brand") do %>
                     <span>ログアウト</span>
                   <% end %>
