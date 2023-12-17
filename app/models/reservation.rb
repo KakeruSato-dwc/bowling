@@ -2,6 +2,7 @@ class Reservation < ApplicationRecord
   belongs_to :user
   has_many :lane_details, dependent: :destroy
   accepts_nested_attributes_for :lane_details, allow_destroy: true
+  has_many :notifications, dependent: :destroy
 
   validates :group_name, presence: true
   validates :num_children, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}

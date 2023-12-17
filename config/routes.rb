@@ -19,6 +19,10 @@ Rails.application.routes.draw do
     sessions: "admin/sessions"
   }
 
+  namespace :admin do
+    resources :notifications, only: [:index]
+  end
+
   post "/admin/num_lanes" => "admin/start_dates#num_lanes", as: "admin_num_lanes"
   namespace :admin do
     resources :start_dates, only: [:create, :index, :show, :edit, :update, :destroy] do

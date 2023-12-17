@@ -77,6 +77,12 @@ class Public::ReservationsController < ApplicationController
       end
     end
     @reservation.save
+    notification = Notification.new(
+      action: "reserve",
+      checked: false,
+      reservation_id: @reservation.id
+    )
+    notification.save
     redirect_to complete_path
   end
 
@@ -128,6 +134,12 @@ class Public::ReservationsController < ApplicationController
         start_time.update(num_available_lanes: fixed_lanes)
       end
     end
+    notification = Notification.new(
+      action: "cancel",
+      checked: false,
+      reservation_id: @reservation.id
+    )
+    notification.save
     redirect_to reservations_path
   end
 
@@ -156,5 +168,9 @@ class Public::ReservationsController < ApplicationController
     params.require(:reservation).permit(:group_name, :num_children, :num_students, :num_adults, :num_games, :num_lanes, :start_date, :start_time, :note, :games_fee,
       lane_details_attributes: [:id, :name_1, :name_2, :name_3, :name_4]
     )
+  end
+
+  def contification_params
+    params.require(:notification).permit(:action, :checked, :reservation_id)
   end
 end
