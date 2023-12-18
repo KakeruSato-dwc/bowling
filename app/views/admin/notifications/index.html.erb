@@ -1,3 +1,4 @@
 <% @notifications.each do |notification| %>
   <%= notification.reservation_id %> <%= notification.action %> <%= notification.checked %>
+  <p><%= notification.reservation.group_name %></p>
 <% end %>
