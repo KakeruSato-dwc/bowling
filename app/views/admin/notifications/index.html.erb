@@ -1,4 +1,50 @@
-<% @notifications.each do |notification| %>
-  <%= notification.reservation_id %> <%= notification.action %> <%= notification.checked %>
-  <p><%= notification.reservation.group_name %></p>
-<% end %>
+<div class="container">
+  <div class="row my-4">
+    <div class="col-4 text-center bg-light">
+      <h2>通知</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <% @notifications.each do |notification| %>
+      <% if @notifications.index(notification) % 2 == 0 %>
+        <div class="col-10 mx-auto pt-4">
+          <%= link_to(admin_reservation_path(notification.reservation_id), style: "color: black;") do %>
+            <% if notification.action == "reserve" %>
+              <span class="h5">
+                <%= notification.reservation.start_date.strftime("%m/%d") %> <%= notification.reservation.group_name %>
+                様の<span class="text text-success">予約が入りました</span>。
+              </span>
+              <p class="text-right"><%= notification.created_at.strftime("%Y/%m/%d %H:%M") %></p>
+            <% else %>
+              <span class="h5">
+                <%= notification.reservation.start_date.strftime("%m/%d") %> <%= notification.reservation.group_name %>
+                様の予約が<span class="text text-danger">キャンセル</span>されました。
+              </span>
+              <p class="text-right"><%= notification.created_at.strftime("%Y/%m/%d %H:%M") %></p>
+            <% end %>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="col-10 mx-auto pt-4 bg-light">
+          <%= link_to(admin_reservation_path(notification.reservation_id), style: "color: black;") do %>
+            <% if notification.action == "reserve" %>
+              <span class="h5">
+                <%= notification.reservation.start_date.strftime("%m/%d") %> <%= notification.reservation.group_name %>
+                様の<span class="text text-success">予約が入りました</span>。
+              </span>
+              <p class="text-right"><%= notification.created_at.strftime("%Y/%m/%d %H:%M") %></p>
+            <% else %>
+              <span class="h5">
+                <%= notification.reservation.start_date.strftime("%m/%d") %> <%= notification.reservation.group_name %>
+                様の予約が<span class="text text-danger">キャンセル</span>されました。
+              </span>
+              <p class="text-right"><%= notification.created_at.strftime("%Y/%m/%d %H:%M") %></p>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+</div>

@@ -29,7 +29,7 @@
               <td><%= user.email %></td>
               <% if user.reservations.any? %>
                 <td><%= user.reservations.where(is_active: true).count %></td>
-                <% date = user.reservations.last.start_date %>
+                <% date = user.reservations.where(is_active: true).last.start_date %>
                 <% days = ["日", "月", "火", "水", "木", "金", "土"] %>
                 <td>
                   <%= link_to(admin_start_date_path(StartDate.find_by(start_date: date).id), style: "color: black; text-decoration: underline") do %>
