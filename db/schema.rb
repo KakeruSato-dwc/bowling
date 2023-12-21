@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_12_17_130717) do
+ActiveRecord::Schema.define(version: 2023_12_21_150655) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -64,6 +64,14 @@ ActiveRecord::Schema.define(version: 2023_12_17_130717) do
     t.text "note"
     t.integer "games_fee", null: false
     t.boolean "is_active", default: true, null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer "valuation", null: false
+    t.text "body"
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

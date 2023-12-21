@@ -77,11 +77,19 @@
     </div>
   <% end %>
 
-  <% if @start_date.start_date > Date.current %>
-    <div class="row mt-2">
-      <div class="col-6 mx-auto text-center">
+  <% @yesterday = StartDate.find_by(start_date: @start_date.start_date.ago(1.day)) %>
+  <% @tomorrow = StartDate.find_by(start_date: @start_date.start_date.since(1.day)) %>
+  <div class="row mt-2">
+    <div class="col-10 mx-auto text-center">
+      <% if @yesterday.presence %>
+        <%= link_to "前の日", admin_start_date_path(@yesterday.id), class: "btn btn-primary mr-4" %>
+      <% end %>
+      <% if @start_date.start_date > Date.current %>
         <%= link_to "残レーン数を編集", edit_admin_start_date_path(@start_date.id), class: "btn btn-success" %>
-      </div>
+      <% end %>
+      <% if @tomorrow.presence %>
+        <%= link_to "次の日", admin_start_date_path(@tomorrow.id), class: "btn btn-primary ml-4" %>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 </div>
