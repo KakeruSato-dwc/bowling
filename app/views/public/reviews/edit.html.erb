@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-4 text-center bg-light">
+      <h2>レビューの編集</h2>
+    </div>
+  </div>
+
+  <%= form_with model: @review, url: review_path(@review.id), method: :patch do |f| %>
+    <div class="row mt-4">
+      <div class="col-10 mx-auto text-center">
+        <table class="table table-borderless">
+          <tbody>
+            <tr>
+              <td scope="col" width="25%"></td>
+              <td scope="col" width="10%">1</td>
+              <td scope="col" width="10%">2</td>
+              <td scope="col" width="10%">3</td>
+              <td scope="col" width="10%">4</td>
+              <td scope="col" width="10%">5</td>
+              <td scope="col" width="25%"></td>
+            </tr>
+            <tr>
+              <td class="text-right">不満</td>
+              <td><%= f.radio_button :valuation, 1 %></td>
+              <td><%= f.radio_button :valuation, 2 %></td>
+              <td><%= f.radio_button :valuation, 3 %></td>
+              <td><%= f.radio_button :valuation, 4 %></td>
+              <td><%= f.radio_button :valuation, 5 %></td>
+              <td class="text-left">満足</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-8 mx-auto text-center">
+        <%= f.text_area :body, class: "form-control", style: "width:100%", rows: "4" %>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-10 mx-auto text-center">
+        <%= f.submit "編集内容を保存", class: "btn btn-success mr-3" %>
+        <%= link_to "戻る", reviews_path, class: "btn btn-primary ml-3" %>
+      </div>
+    </div>
+  <% end %>
+
+</div>

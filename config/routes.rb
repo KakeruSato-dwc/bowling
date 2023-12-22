@@ -38,6 +38,10 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :show, :edit, :update]
   end
 
+  scope module: "public" do
+    resources :reviews, only: [:index, :create, :edit, :update, :destroy]
+  end
+
   get "/users/my_page" => "public/users#show", as: "my_page"
   get "/users/information/edit" => "public/users#edit", as: "edit_user_information"
   patch "/users/information" => "public/users#update", as: "update_user_information"

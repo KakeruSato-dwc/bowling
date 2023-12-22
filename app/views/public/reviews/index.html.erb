@@ -1,0 +1,87 @@
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-4 text-center bg-light">
+      <h2>レビュー</h2>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-10 mx-auto">
+      <table class="table table-bordered">
+        <tbody>
+          <% @reviews.each do |review| %>
+            <tr>
+              <td class="h4 text-center align-middle" scope="col" width="20%"><%= review.valuation %></td>
+              <% if user_signed_in? && review.user_id == current_user.id %>
+                <td scope="col" width="60%">
+                  <%= review.user.last_name %> <%= review.user.first_name %>
+                  <span class="text text-secondary ml-2"><%= review.created_at.strftime("%Y/%m/%d %H:%M") %></span>
+                  <p><%= review.body %></p>
+                </td>
+                <td class="text-center align-middle" scope="col" width="10%"><%= link_to "編集", edit_review_path(review.id), class: "btn btn-success" %></td>
+                <td class="text-center align-middle" scope="col" width="10%"><%= link_to "削除", review_path(review.id), method: :delete, class: "btn btn-danger" %></td>
+              <% else %>
+                <td scope="col" width="80%" colspan="3">
+                  <%= review.user.last_name %> <%= review.user.first_name %>
+                  <span class="text text-secondary ml-2"><%= review.created_at.strftime("%Y/%m/%d %H:%M") %></span>
+                  <p><%= review.body %></p>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-6 mx-auto">
+      <%= paginate @reviews %>
+    </div>
+  </div>
+
+  <% if user_signed_in? %>
+    <%= form_with model: @review, url: reviews_path, method: :post do |f| %>
+      <div class="row mt-4">
+        <span class="h5 ml-4">レビューの記入はこちらから</span><span>（必ずいずれかのボタンにチェックを入れてください）</span>
+        <div class="col-10 mx-auto text-center">
+          <table class="table table-borderless">
+            <tbody>
+              <tr>
+                <td scope="col" width="25%"></td>
+                <td scope="col" width="10%">1</td>
+                <td scope="col" width="10%">2</td>
+                <td scope="col" width="10%">3</td>
+                <td scope="col" width="10%">4</td>
+                <td scope="col" width="10%">5</td>
+                <td scope="col" width="25%"></td>
+              </tr>
+              <tr>
+                <td class="text-right">不満</td>
+                <td><%= f.radio_button :valuation, 1 %></td>
+                <td><%= f.radio_button :valuation, 2 %></td>
+                <td><%= f.radio_button :valuation, 3 %></td>
+                <td><%= f.radio_button :valuation, 4 %></td>
+                <td><%= f.radio_button :valuation, 5 %></td>
+                <td class="text-left">満足</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-8 mx-auto text-center">
+          <%= f.text_area :body, class: "form-control", style: "width:100%", rows: "4" %>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-10 mx-auto text-center">
+          <%= f.submit "送信する", class: "btn btn-success" %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+</div>
