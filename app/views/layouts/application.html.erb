@@ -20,10 +20,10 @@
               <span>Topページ</span>
             <% end %>
           <% end %>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expand="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expand="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="navbar navbar-collapse" id="navbarNavDropdown">
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
               <% if user_signed_in? %>
                 <li>
@@ -47,20 +47,11 @@
                   <% end %>
                 </li>
                 <li>
-                  <%= link_to(my_page_path, class: "navbar-brand") do %>
-                    <span>会員情報</span>
-                  <% end %>
-                </li>
-                <li>
                   <%= link_to(reviews_path, class: "navbar-brand") do %>
                     <span>レビュー</span>
                   <% end %>
                 </li>
-                <li>
-                  <%= link_to(destroy_user_session_path, method: :delete, class: "navbar-brand") do %>
-                    <span>ログアウト</span>
-                  <% end %>
-                </li>
+
               <% elsif admin_signed_in? %>
                 <li>
                   <%= link_to(lane_status_path, class: "navbar-brand") do %>
@@ -112,6 +103,7 @@
                     <span>ログアウト</span>
                   <% end %>
                 </li>
+
               <% else %>
                 <li>
                   <%= link_to(fee_path, class: "navbar-brand") do %>
@@ -146,6 +138,25 @@
               <% end %>
             </ul>
           </div>
+
+          <% if user_signed_in? %>
+            <div class="dropdown">
+              <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <%= current_user.last_name %> <%= current_user.first_name %>
+              </button>
+              <ul class="dropdown-menu">
+                <li class="ml-4">
+                  <%= link_to "ログアウト", destroy_user_session_path, method: :delete, style: "color: black;" %>
+                </li>
+                <li class="mt-2 ml-4">
+                  <%= link_to "マイページ", my_page_path, style: "color: black;" %>
+                </li>
+                <li class="mt-2 ml-4">
+                  <%= link_to "予約履歴一覧", reservations_path, style: "color: black;" %>
+                </li>
+              </ul>
+            </div>
+          <% end %>
         </div>
       </nav>
     </header>
