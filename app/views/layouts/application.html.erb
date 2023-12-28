@@ -25,6 +25,8 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
+
+              <!-- 会員側でログインしている場合 -->
               <% if user_signed_in? %>
                 <li>
                   <%= link_to(fee_path, class: "navbar-brand") do %>
@@ -52,6 +54,7 @@
                   <% end %>
                 </li>
 
+              <!-- 管理者側でログインしている場合 -->
               <% elsif admin_signed_in? %>
                 <li>
                   <%= link_to(lane_status_path, class: "navbar-brand") do %>
@@ -104,6 +107,7 @@
                   <% end %>
                 </li>
 
+              <!-- ログインしていない場合 -->
               <% else %>
                 <li>
                   <%= link_to(fee_path, class: "navbar-brand") do %>
@@ -139,6 +143,7 @@
             </ul>
           </div>
 
+          <!-- 会員側でログインしている場合、ログインしている人の名前が表示されたドロップボタンを実装する -->
           <% if user_signed_in? %>
             <div class="dropdown">
               <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -165,6 +170,7 @@
       <%= yield %>
     </main>
 
+    <!-- 管理者側でログインしているときは、フッターは表示しない -->
     <% unless admin_signed_in? %>
       <footer class="mt-4 bg-secondary py-4 text-white">
         <div class="container">
