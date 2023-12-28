@@ -121,6 +121,11 @@
                   <% end %>
                 </li>
                 <li>
+                  <%= link_to(reviews_path, class: "navbar-brand") do %>
+                    <span>レビュー</span>
+                  <% end %>
+                </li>
+                <li>
                   <%= link_to(new_user_registration_path, class: "navbar-brand") do %>
                     <span>会員登録</span>
                   <% end %>
@@ -130,11 +135,6 @@
                     <span>ログイン</span>
                   <% end %>
                 </li>
-                <li>
-                  <%= link_to(reviews_path, class: "navbar-brand") do %>
-                    <span>レビュー</span>
-                  <% end %>
-                </li>
               <% end %>
             </ul>
           </div>
@@ -142,7 +142,7 @@
           <% if user_signed_in? %>
             <div class="dropdown">
               <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                <%= current_user.last_name %> <%= current_user.first_name %>
+                <i class="fa-solid fa-person"></i> <%= current_user.last_name %> <%= current_user.first_name %>
               </button>
               <ul class="dropdown-menu">
                 <li class="ml-4">
@@ -162,7 +162,6 @@
     </header>
 
     <main>
-      <p class="notice"><%= notice %></p>
       <%= yield %>
     </main>
 

@@ -1,5 +1,6 @@
 class Public::ReservationsController < ApplicationController
   before_action :authenticate_user!
+  before_action :is_matching_login_user, only: [:show, :confirm_cancel]
 
   def new
     @reservation = Reservation.new
@@ -8,23 +9,23 @@ class Public::ReservationsController < ApplicationController
   def select_time
     @reservation = Reservation.new(reservation_params)
     unless params[:reservation][:group_name].presence
-      flash[:caution] = "団体名を記入してください"
+      flash.now[:caution] = "団体名を記入してください"
       render :new
       return
     end
     if "#{params[:reservation][:num_children]}" == "0" && "#{params[:reservation][:num_students]}" == "0" && "#{params[:reservation][:num_adults]}" == "0"
-      flash[:danger] = "0人では予約できません"
+      flash.now[:danger] = "0人では予約できません"
       render :new
       return
     end
     startdate = StartDate.find_by(start_date: params[:reservation][:start_date])
     unless startdate
-      flash[:alert] = "この日は予約不可能となっております"
+      flash.now[:alert] = "この日は予約不可能となっております"
       render :new
       return
     end
     if startdate.is_active == false
-      flash[:alert] = "この日は予約不可能となっております"
+      flash.now[:alert] = "この日は予約不可能となっております"
       render :new
       return
     end
@@ -84,27 +85,6 @@ class Public::ReservationsController < ApplicationController
     )
     notification.save
     redirect_to complete_path
-  end
-
-  def members_table
-    @reservation = Reservation.new(reservation_params)
-    @reservation.user_id = current_user.id
-    @start_date = StartDate.find_by(start_date: @reservation.start_date)
-    if params[:back]
-      @reservation.lane_details.destroy_all
-      render :confirm
-      return
-    end
-    (1..@reservation.num_lanes).to_a.each do |i|
-      name_1 = params[:reservation][:lane_details_attributes]["#{i - 1}"][:name_1]
-      name_2 = params[:reservation][:lane_details_attributes]["#{i - 1}"][:name_2]
-      name_3 = params[:reservation][:lane_details_attributes]["#{i - 1}"][:name_3]
-      unless name_1.presence && name_2.presence && name_3.presence
-        render :create
-        return
-      end
-    end
-    render :confirm
   end
 
   def complete
@@ -172,5 +152,12 @@ class Public::ReservationsController < ApplicationController
 
   def contification_params
     params.require(:notification).permit(:action, :checked, :reservation_id)
+  end
+
+  def is_matching_login_user
+    reservation = Reservation.find(params[:id])
+    unless reservation.user_id == current_user.id
+      redirect_to "/reservations"
+    end
   end
 end

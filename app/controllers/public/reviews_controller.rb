@@ -1,5 +1,6 @@
 class Public::ReviewsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
+  before_action :is_matching_login_user, only: [:edit]
 
   def index
     @reviews = Review.page(params[:page]).per(10)
@@ -40,5 +41,12 @@ class Public::ReviewsController < ApplicationController
 
   def review_params
     params.require(:review).permit(:valuation, :body, :user_id)
+  end
+
+  def is_matching_login_user
+    review = Review.find(params[:id])
+    unless review.user_id == current_user.id
+      redirect_to "/reviews"
+    end
   end
 end
