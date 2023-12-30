@@ -47,7 +47,7 @@ Rails.application.routes.draw do
   patch "/users/information" => "public/users#update", as: "update_user_information"
 
   scope module: "public" do
-    resources :reservations, only: [:new, :index, :show, :update, :destroy]
+    resources :reservations, only: [:new, :index, :show, :update]
   end
   post "/reservations/select_time" => "public/reservations#select_time", as: "select_time"
   post "/reservations/confirm" => "public/reservations#confirm", as: "confirm"
@@ -56,7 +56,6 @@ Rails.application.routes.draw do
   get "/complete" => "public/reservations#complete", as: "complete"
   get "/reservations/:id/confirm_cancel" => "public/reservations#confirm_cancel", as: "confirm_cancel"
   patch "/reservations/:id/cancel" => "public/reservations#cancel", as: "cancel"
-  get "/reservations/:id/members" => "public/reservations#members", as: "members"
 
   scope module: "public" do
     resources :lane_details, only: [:create, :update, :destroy]

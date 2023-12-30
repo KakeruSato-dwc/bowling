@@ -178,14 +178,6 @@ class Public::ReservationsController < ApplicationController
   end
 
 
-  def destroy
-    reservation = Reservation.find(params[:id])
-    lane_details = reservation.lane_details.all
-    lane_details.destroy_all
-    redirect_to members_path(reservation.id)
-  end
-
-
   private
 
   def reservation_params
