@@ -2,6 +2,9 @@
   <div class="row my-4">
     <div class="col-4 text-center bg-light">
       <h2>通知</h2>
+      <% if @num_new_notifications > 0 %>
+        <p><%= @num_new_notifications %>件の新着通知があります</p>
+      <% end %>
     </div>
   </div>
 
