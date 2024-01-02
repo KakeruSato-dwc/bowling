@@ -20,6 +20,7 @@
         </thead>
         <tbody>
           <% @reservations.each do |reservation| %>
+            <% @start_date = StartDate.find_by(start_date: reservation.start_date) %>
             <% if reservation.start_date == Date.current && reservation.is_active == true %>
               <tr class="bg-success">
                 <td>
@@ -32,7 +33,11 @@
                     <%= reservation.group_name %>
                   <% end %>
                 </td>
-                <td><%= reservation.start_date %></td>
+                <td>
+                  <%= link_to(admin_start_date_path(@start_date.id), style: "color: black; text-decoration: underline") do %>
+                    <%= reservation.start_date %>
+                  <% end %>
+                </td>
                 <td><%= reservation.start_time.strftime("%H:%M") %></td>
                 <td><%= reservation.num_children + reservation.num_students + reservation.num_adults %></td>
                 <td>有効</td>
@@ -49,7 +54,11 @@
                     <%= reservation.group_name %>
                   <% end %>
                 </td>
-                <td><%= reservation.start_date %></td>
+                <td>
+                  <%= link_to(admin_start_date_path(@start_date.id), style: "color: black; text-decoration: underline") do %>
+                    <%= reservation.start_date %>
+                  <% end %>
+                </td>
                 <td><%= reservation.start_time.strftime("%H:%M") %></td>
                 <td><%= reservation.num_children + reservation.num_students + reservation.num_adults %></td>
                 <% if reservation.is_active == true %>
