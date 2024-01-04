@@ -16,7 +16,7 @@ class Admin::StartDatesController < ApplicationController
   def create
     @start_date = StartDate.new(start_date_params)
     @start_date.save
-    redirect_to admin_start_dates_path
+    redirect_to "/admin/start_dates?start_date=#{@start_date.start_date}"
   end
 
   def show

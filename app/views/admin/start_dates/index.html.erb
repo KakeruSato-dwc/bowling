@@ -12,6 +12,7 @@
           <%= link_to(admin_start_date_path(StartDate.find_by(start_date: date).id), style: "color: black") do %>
             <%= date.day %>
             <% if Reservation.where(start_date: date, is_active: true).exists? %>
+              <p></p>
               <p class="bg-primary text-white"><%= Reservation.where(start_date: date, is_active: true).count %>件</p>
             <% end %>
             <% if StartDate.find_by(start_date: date).is_active == false %>
