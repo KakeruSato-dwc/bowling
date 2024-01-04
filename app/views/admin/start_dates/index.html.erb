@@ -8,19 +8,25 @@
   <div class="row mt-4">
     <div class="col-12 mx-auto text-center">
       <%= month_calendar do |date| %>
+        <!-- 既に残レーンが登録されている日付の場合 -->
         <% if StartDate.find_by("start_date = ?", date) %>
           <%= link_to(admin_start_date_path(StartDate.find_by(start_date: date).id), style: "color: black") do %>
             <%= date.day %>
+            <!-- 予約が入っている場合は、その予約件数を表示する -->
             <% if Reservation.where(start_date: date, is_active: true).exists? %>
               <p></p>
               <p class="bg-primary text-white"><%= Reservation.where(start_date: date, is_active: true).count %>件</p>
             <% end %>
+            <!-- 予約不可能な日付には、バツ印をつける -->
             <% if StartDate.find_by(start_date: date).is_active == false %>
               <h1 class="text text-danger">×</h1>
             <% end %>
           <% end %>
+
+        <!-- まだ残レーン数が登録されていない日付の場合 -->
         <% else %>
           <%= date.day %>
+          <!-- ３ヶ月先までは残レーンの入力を受け付ける -->
           <% if date <= Date.current.since(3.month) %>
             <%= form_with model: @start_date, url: admin_num_lanes_path, method: :post do |f| %>
               <%= f.hidden_field :start_date, :value => date %>

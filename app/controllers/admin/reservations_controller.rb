@@ -20,7 +20,12 @@ class Admin::ReservationsController < ApplicationController
     @lane_details = @reservation.lane_details.all
     @start_date = StartDate.find_by(start_date: @reservation.start_date)
     if @reservation.update(reservation_params)
-      fixed_games_fee = (@reservation.num_children * 400 + @reservation.num_students * 500 + @reservation.num_adults * 600) * @reservation.num_games
+      if @reservation.lane_details.presence
+        service_fee = (@reservation.num_children + @reservation.num_students + @reservation.num_adults) * 100
+        fixed_games_fee = (@reservation.num_children * 400 + @reservation.num_students * 500 + @reservation.num_adults * 600) * @reservation.num_games - service_fee
+      else
+        fixed_games_fee = (@reservation.num_children * 400 + @reservation.num_students * 500 + @reservation.num_adults * 600) * @reservation.num_games
+      end
       @reservation.update(games_fee: fixed_games_fee)
       @start_date.start_times.each do |start_time|
         time = start_time.start_time
