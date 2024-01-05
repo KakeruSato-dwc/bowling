@@ -15,10 +15,8 @@
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-          <% unless admin_signed_in? %>
-            <%= link_to(root_path, class: "navbar-brand") do %>
-              <span>Topページ</span>
-            <% end %>
+          <%= link_to(root_path, class: "navbar-brand") do %>
+            <span>Topページ</span>
           <% end %>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expand="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -56,37 +54,37 @@
 
               <!-- 管理者側でログインしている場合 -->
               <% elsif admin_signed_in? %>
-                <li>
+                <li class="my-auto">
                   <%= link_to(lane_status_path, class: "navbar-brand") do %>
                     <span>残レーン状況</span>
                   <% end %>
                 </li>
-                <li>
+                <li class="my-auto">
                   <%= link_to(admin_users_path, class: "navbar-brand") do %>
                     <span>会員一覧</span>
                   <% end %>
                 </li>
-                <li>
+                <li class="my-auto">
                   <%= link_to(admin_about_path, class: "navbar-brand") do %>
                     <span>最近登録された予約</span>
                   <% end %>
                 </li>
-                <li>
+                <li class="my-auto">
                   <%= link_to(admin_root_path, class: "navbar-brand") do %>
                     <span>予約一覧(未)</span>
                   <% end %>
                 </li>
-                <li>
+                <li class="my-auto">
                   <%= link_to(admin_reservations_path, class: "navbar-brand") do %>
                     <span>予約一覧(済)</span>
                   <% end %>
                 </li>
-                <li>
+                <li class="my-auto">
                   <%= link_to(admin_start_dates_path, class: "navbar-brand") do %>
                     <span>カレンダー</span>
                   <% end %>
                 </li>
-                <li>
+                <li class="my-auto">
                   <%= link_to(reviews_path, class: "navbar-brand") do %>
                     <span>レビュー</span>
                   <% end %>
@@ -101,7 +99,7 @@
                     </span>
                   <% end %>
                 </li>
-                <li>
+                <li class="my-auto">
                   <%= link_to(destroy_admin_session_path, method: :delete, class: "navbar-brand") do %>
                     <span>ログアウト</span>
                   <% end %>
