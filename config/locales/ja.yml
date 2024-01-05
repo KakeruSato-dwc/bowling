@@ -17,6 +17,13 @@ ja:
         address: "住所"
         telephone_number: "電話番号"
         password: "パスワード"
+      reservation:
+        group_name: "団体名"
+        num_children: "子どもの人数"
+        num_students: "学生の人数"
+        num_adults: "大人の人数"
+        num_games: "ゲーム数"
+        num_lanes: "レーン数"
   date:
     abbr_day_names:
     - 日
