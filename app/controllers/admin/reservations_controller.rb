@@ -20,7 +20,7 @@ class Admin::ReservationsController < ApplicationController
     @lane_details = @reservation.lane_details.all
     @start_date = StartDate.find_by(start_date: @reservation.start_date)
     if @reservation.update(reservation_params)
-      if @reservation.lane_details.presence
+      if @reservation.lane_details.presence && @reservation.lane_details[0].name_1.presence
         service_fee = (@reservation.num_children + @reservation.num_students + @reservation.num_adults) * 100
         fixed_games_fee = (@reservation.num_children * 400 + @reservation.num_students * 500 + @reservation.num_adults * 600) * @reservation.num_games - service_fee
       else
@@ -45,6 +45,12 @@ class Admin::ReservationsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    reservation = Reservation.find(params[:id])
+    reservation.destroy
+    redirect_to admin_root_path
   end
 
   private

@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :reservations, only: [:index, :show, :edit, :update]
+    resources :reservations, only: [:index, :show, :edit, :update, :destroy]
   end
 
   namespace :admin do
