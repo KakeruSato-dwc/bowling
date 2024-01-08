@@ -13,6 +13,14 @@
     </div>
   </div>
 
+  <div class="row mt-2">
+    <div class="col-6 mx-auto">
+      <p class="text-center bg-danger text-white">
+        ※ 前の画面に戻るときは、必ず「戻る」ボタンを押してください。
+      </p>
+    </div>
+  </div>
+
   <%= form_with model: @reservation, url: confirm_path, method: :post do |f| %>
     <% @num_members = @reservation.num_children + @reservation.num_students + @reservation.num_adults %>
     <% if @num_members % 4 == 0 %>
@@ -21,8 +29,8 @@
       <% @num_lanes = (@num_members / 4).floor + 1 %>
     <% end %>
     <%= f.hidden_field :num_lanes, :value => @num_lanes %>
-    <div class="row mt-4">
-      <div class="col-6">
+    <div class="row mt-2">
+      <div class="col-3">
         <table class="table table-bordered">
           <thead class="bg-light">
             <tr>
@@ -31,7 +39,26 @@
             </tr>
           </thead>
           <tbody>
-            <% @start_date.start_times.each do |start_time| %>
+            <% @start_date.start_times.first(10).each do |start_time| %>
+              <tr>
+                <td><%= start_time.start_time.strftime("%H:%M") %></td>
+                <td><%= start_time.num_available_lanes %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-3">
+        <table class="table table-bordered">
+          <thead class="bg-light">
+            <tr>
+              <td>時間</td>
+              <td>残レーン数</td>
+            </tr>
+          </thead>
+          <tbody>
+            <% @start_date.start_times.last(10).each do |start_time| %>
               <tr>
                 <td><%= start_time.start_time.strftime("%H:%M") %></td>
                 <td><%= start_time.num_available_lanes %></td>
