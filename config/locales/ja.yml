@@ -24,6 +24,8 @@ ja:
         num_adults: "大人の人数"
         num_games: "ゲーム数"
         num_lanes: "レーン数"
+        lane_details_attributes:
+          name_1: "第１投球者"
   date:
     abbr_day_names:
     - 日
