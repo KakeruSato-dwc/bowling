@@ -73,10 +73,6 @@ class Public::ReservationsController < ApplicationController
     @reservation = Reservation.new(reservation_params)
     @reservation.user_id = current_user.id
     @start_date = StartDate.find_by(start_date: @reservation.start_date)
-    # メンバー表を新しく入力するときは、使用レーン数の分だけのメン表を用意する
-    unless @reservation.lane_details.presence
-      @reservation.num_lanes.times{@reservation.lane_details.build}
-    end
     # 「戻る」ボタンを押すと、前の画面に戻る
     if params[:back]
       render :select_time
@@ -84,6 +80,10 @@ class Public::ReservationsController < ApplicationController
     end
     # 「メンバー表を入力」を押すと、メンバー表入力画面に移る
     if params[:member]
+      # メンバー表を新しく入力するときは、使用レーン数の分だけのメン表を用意する
+      unless @reservation.lane_details.presence
+        @reservation.num_lanes.times{@reservation.lane_details.build}
+      end
       render :create
       return
     end
