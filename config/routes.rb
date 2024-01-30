@@ -25,9 +25,7 @@ Rails.application.routes.draw do
 
   post "/admin/num_lanes" => "admin/start_dates#num_lanes", as: "admin_num_lanes"
   namespace :admin do
-    resources :start_dates, only: [:create, :index, :show, :edit, :update, :destroy] do
-      resources :start_times, only: [:new, :create, :update]
-    end
+    resources :start_dates, only: [:create, :index, :show, :edit, :update, :destroy]
   end
 
   namespace :admin do
@@ -47,7 +45,7 @@ Rails.application.routes.draw do
   patch "/users/information" => "public/users#update", as: "update_user_information"
 
   scope module: "public" do
-    resources :reservations, only: [:new, :index, :show, :update]
+    resources :reservations, only: [:new, :index, :show]
   end
   post "/reservations/select_time" => "public/reservations#select_time", as: "select_time"
   post "/reservations/confirm" => "public/reservations#confirm", as: "confirm"
@@ -56,10 +54,6 @@ Rails.application.routes.draw do
   get "/complete" => "public/reservations#complete", as: "complete"
   get "/reservations/:id/confirm_cancel" => "public/reservations#confirm_cancel", as: "confirm_cancel"
   patch "/reservations/:id/cancel" => "public/reservations#cancel", as: "cancel"
-
-  scope module: "public" do
-    resources :lane_details, only: [:create, :update, :destroy]
-  end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

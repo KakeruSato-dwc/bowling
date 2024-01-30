@@ -171,13 +171,6 @@ class Public::ReservationsController < ApplicationController
   end
 
 
-  def update
-    @reservation = Reservation.find(params[:id])
-    @reservation.update(reservation_params)
-    redirect_to reservation_path(@reservation.id)
-  end
-
-
   private
 
   def reservation_params
