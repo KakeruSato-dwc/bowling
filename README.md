@@ -20,10 +20,14 @@
 - ボウリングの予約をするとき
 ​
 ## 設計書
-後ほど作成予定
+- ER図
+https://drive.google.com/file/d/1CKODgpdnvJM5cKjfP-2i0m0VzjzZht4E/view?usp=sharing
 
-## 実装機能リストのURL
-https://docs.google.com/spreadsheets/d/17LUFGZWs1QrZfGGt0Quuua166lzOIVR5jQNIQ9JnVuQ/edit?usp=sharing
+- テーブル定義書
+https://docs.google.com/spreadsheets/d/1axXkg--ydnIbc9k-OHFJ5lN0HAR271Pk5vrwmEQZ0xU/edit?usp=sharing
+
+- 詳細設計書
+https://docs.google.com/spreadsheets/d/1nhmDYgsZOFZ3r10mzxW-icv8rjHt3XCdK_g6R0FqDFk/edit?usp=sharing
 ​
 ## 開発環境
 - OS：Linux(CentOS)
