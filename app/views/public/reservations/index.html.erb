@@ -4,10 +4,10 @@
       <h2>予約履歴一覧</h2>
     </div>
   </div>
-  
+
   <div class="row mt-4">
     <div class="col-12 mx-auto text-center">
-            <table class="table table-bordered">
+        <table class="table table-bordered">
         <thead class="bg-light">
           <tr>
             <td scope="col" style="width: 30%">団体名</td>
@@ -35,6 +35,12 @@
           <% end %>
         </tbody>
       </table>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-12 mx-auto text-center">
+      <%= link_to "マイページ", my_page_path, class: "btn btn-primary" %>
     </div>
   </div>
 </div>
