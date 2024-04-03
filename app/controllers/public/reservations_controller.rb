@@ -15,7 +15,12 @@ class Public::ReservationsController < ApplicationController
       render :new
       return
     end
-    # 予約人数が0人の場合は、次の画面に進めない
+    # 人数が負の数の場合は、次の画面に進めない
+    if params[:reservation][:num_children].to_i < 0 || params[:reservation][:num_students].to_i < 0 || params[:reservation][:num_adults].to_i < 0
+      render :new
+      return
+    end
+    # 予約人数が0人または97人以上の場合は、次の画面に進めない
     num_players = params[:reservation][:num_children].to_i + params[:reservation][:num_students].to_i + params[:reservation][:num_adults].to_i
     if num_players == 0 || num_players > 96
       flash.now[:danger] = "一度に予約いただける人数は1〜96人となります"
