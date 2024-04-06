@@ -30,10 +30,9 @@
   <div class="row mt-3">
     <div class="col-1"></div>
     <div class="col-4 text-center h4 my-auto">人数</div>
-    <div class="col-2 text-center">中学生以下<%= f.text_field :num_children, class: "w-100" %></div>
-    <div class="col-2 text-center">高校・大学・専門学生<%= f.text_field :num_students, class: "w-100" %></div>
-    <div class="col-2 text-center">一般<%= f.text_field :num_adults, class: "w-100" %></div>
-    <div class="col-1 mt-auto">人</div>
+    <div class="col-2 text-center my-auto">中学生以下 <%= f.select :num_children, *[0..96] %> 人</div>
+    <div class="col-3 text-center my-auto">高校・大学・専門学生 <%= f.select :num_students, *[0..96] %> 人</div>
+    <div class="col-2 text-center my-auto">一般 <%= f.select :num_adults, *[0..96] %> 人</div>
   </div>
 
   <div class="row mt-3">
