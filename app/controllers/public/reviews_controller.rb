@@ -1,6 +1,6 @@
 class Public::ReviewsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
-  before_action :is_matching_login_user, only: [:edit]
+  before_action :is_matching_login_user, only: [:edit, :destroy]
 
   def index
     @reviews = Review.page(params[:page]).per(10)
