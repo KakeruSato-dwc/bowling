@@ -21,8 +21,8 @@
 
 env :PATH, ENV['PATH']
 set :output, 'log/cron.log'
-set :environment, :development
+set :environment, :production
 
 every 1.days, at: '0:00 am' do
-  runner 'Reservation.where("start_date < ?", 90.days.ago.beginning_of_day).delete_all'
+  runner 'Reservation.where("start_date < ?", 5.years.ago.beginning_of_day).delete_all'
 end
