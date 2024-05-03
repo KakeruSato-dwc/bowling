@@ -20,6 +20,9 @@
 - ボウリングの予約をするとき
 ​
 ## 設計書
+- WBS
+https://docs.google.com/spreadsheets/d/1GphSwtQ-fV32o3nQVQT_PSQlEEdP9TXDh72PMeOyiP4/edit?usp=sharing
+
 - ER図
 https://drive.google.com/file/d/1CKODgpdnvJM5cKjfP-2i0m0VzjzZht4E/view?usp=sharing
 
@@ -28,6 +31,9 @@ https://docs.google.com/spreadsheets/d/1axXkg--ydnIbc9k-OHFJ5lN0HAR271Pk5vrwmEQZ
 
 - 詳細設計書
 https://docs.google.com/spreadsheets/d/1nhmDYgsZOFZ3r10mzxW-icv8rjHt3XCdK_g6R0FqDFk/edit?usp=sharing
+
+- テスト仕様書
+https://docs.google.com/spreadsheets/d/1y_q8ywoJbajMtl3_LTP5amI-veH-12YH/edit?usp=sharing&ouid=111464789969802796109&rtpof=true&sd=true
 ​
 ## 開発環境
 - OS：Linux(CentOS)
